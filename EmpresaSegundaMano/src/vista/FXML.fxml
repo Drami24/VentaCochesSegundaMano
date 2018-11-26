@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorVentana">
+  <tabs>
+    <Tab text="Gestión de datos">
+         <content>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Proveedores">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="109.0" prefWidth="570.0">
+                                 <content>
+                                    <TableView editable="true" prefHeight="108.0" prefWidth="535.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn prefWidth="95.0" text="Nombre" />
+                                          <TableColumn prefWidth="92.0" text="Alta" />
+                                      </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button fx:id="butAlta" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" text="Alta" />
+                              <Button layoutX="96.0" layoutY="216.0" mnemonicParsing="false" text="Baja" />
+                              <Button layoutX="170.0" layoutY="216.0" mnemonicParsing="false" text="Modificar" />
+                              <DatePicker fx:id="texAlta" layoutX="364.0" layoutY="146.0" promptText="Fecha de alta" />
+                              <TextField fx:id="texNombre" layoutX="189.0" layoutY="146.0" promptText="Nombre" />
+                              <TextField fx:id="texId" layoutX="14.0" layoutY="146.0" promptText="Id" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Exposiciones">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                </Tab>
+                  <Tab text="Coches">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Vendedores">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Clientes">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Reparaciones">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Coches">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </content>
+    </Tab>
+    <Tab text="Consultas" />
+  </tabs>
+</TabPane>

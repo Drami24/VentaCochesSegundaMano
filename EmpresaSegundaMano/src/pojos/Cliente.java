@@ -108,7 +108,6 @@ public class Cliente {
     }
 
     public void añadirCocheComprado(Coche coche) {
-
         cochesComprados.add(coche);
     }
 

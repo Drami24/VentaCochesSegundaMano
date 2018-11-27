@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
@@ -32,6 +34,18 @@ public class ControladorVentana implements Initializable{
     private DatePicker fechaAlta;
     
     @FXML
+    private TableView tablaProveedores;
+    
+    @FXML
+    private TableColumn id;
+    
+    @FXML
+    private TableColumn nombre;
+    
+    @FXML
+    private TableColumn fecha;
+    
+    @FXML
     private void darAlta(ActionEvent event ){
         
         System.out.println("Click en alta, datos: ");
@@ -47,21 +61,17 @@ public class ControladorVentana implements Initializable{
         else
             System.out.println("No tiene nombre");
         try{
-        if(fechaAlta.getValue().toString()=="")
-            System.out.println("Sin fecha");
-        else
             System.out.println(fechaAlta.getValue().toString());
         }
         catch(RuntimeException rte1){
-            System.out.println(rte1.getCause());
             System.out.println("Non se introduxo Data");
         }
-
     }
+    
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Buenas, me he iniciado.");
     }
     
 }

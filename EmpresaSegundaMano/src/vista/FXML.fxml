@@ -22,11 +22,11 @@
                            <children>
                               <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="109.0" prefWidth="570.0">
                                  <content>
-                                    <TableView editable="true" prefHeight="108.0" prefWidth="535.0">
+                                    <TableView fx:id="tablaProveedores" editable="true" prefHeight="108.0" prefWidth="535.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="ID" />
-                                        <TableColumn prefWidth="95.0" text="Nombre" />
-                                          <TableColumn prefWidth="92.0" text="Alta" />
+                                        <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="nombre" prefWidth="95.0" text="Nombre" />
+                                          <TableColumn fx:id="fecha" prefWidth="92.0" text="Alta" />
                                       </columns>
                                     </TableView>
                                  </content>

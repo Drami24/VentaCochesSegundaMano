@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="EmpresaSegundaManoPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>mapeos.Exposicion</class>
+    <class>mapeos.ReparacionMecanica</class>
+    <class>mapeos.Vendedor</class>
+    <class>mapeos.ReparacionElectrica</class>
+    <class>mapeos.ReparacionChapa</class>
+    <class>mapeos.Coche</class>
+    <class>mapeos.Taller</class>
+    <class>mapeos.Reparacion</class>
+    <class>mapeos.VendedorComision</class>
+    <class>mapeos.VendedorAsalariados</class>
+    <class>mapeos.Proveedor</class>
+    <class>mapeos.Cliente</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/empresa_coches?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="usbw"/>
+    </properties>
+  </persistence-unit>
+</persistence>

@@ -31,11 +31,11 @@
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button fx:id="butAlta" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" text="Alta" />
+                              <Button layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#darAlta" text="Alta" />
                               <Button layoutX="96.0" layoutY="216.0" mnemonicParsing="false" text="Baja" />
                               <Button layoutX="170.0" layoutY="216.0" mnemonicParsing="false" text="Modificar" />
-                              <DatePicker fx:id="texAlta" layoutX="364.0" layoutY="146.0" promptText="Fecha de alta" />
-                              <TextField fx:id="texNombre" layoutX="189.0" layoutY="146.0" promptText="Nombre" />
+                              <DatePicker fx:id="fechaAlta" layoutX="364.0" layoutY="146.0" promptText="Fecha de alta" />
+                              <TextField fx:id="texName" layoutX="189.0" layoutY="146.0" promptText="Nombre" />
                               <TextField fx:id="texId" layoutX="14.0" layoutY="146.0" promptText="Id" />
                            </children>
                         </AnchorPane>

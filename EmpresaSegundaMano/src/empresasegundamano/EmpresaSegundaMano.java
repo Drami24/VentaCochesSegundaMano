@@ -8,9 +8,6 @@ import vista.*;
  * @author a16jorgemf
  */
 public class EmpresaSegundaMano {
-
-<<<<<<< HEAD
-=======
     
 //    public static void main(String[] args) {
 //        System.out.println("Hola mundi");
@@ -21,5 +18,5 @@ public class EmpresaSegundaMano {
 //        
 //    }
     
->>>>>>> branch 'master' of https://github.com/damianld/VentaCochesSegundaMano.git
+
 }

@@ -46,10 +46,16 @@ public class ControladorVentana implements Initializable{
         }
         else
             System.out.println("No tiene nombre");
-        if(fechaAlta.getValue().toString().isEmpty())
+        try{
+        if(fechaAlta.getValue().toString()=="")
             System.out.println("Sin fecha");
         else
             System.out.println(fechaAlta.getValue().toString());
+        }
+        catch(RuntimeException rte1){
+            System.out.println(rte1.getCause());
+            System.out.println("Non se introduxo Data");
+        }
 
     }
     

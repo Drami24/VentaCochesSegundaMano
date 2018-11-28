@@ -96,7 +96,9 @@ public class ControladorVentana implements Initializable{
     
     @FXML
     private void Modificar (ActionEvent event ){
-        
+        ClienteP e=(ClienteP)tablaProveedores.getSelectionModel().getSelectedItem();
+        System.out.println(e.id);
+        //Buscar e modificar no arrayList
         System.out.println("Click en modificar");
         
     }

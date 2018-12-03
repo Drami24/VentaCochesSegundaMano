@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorVentana">
+<TabPane id="PanelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@estilo.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorVentana">
   <tabs>
     <Tab text="Gestión de datos">
          <content>
@@ -45,38 +45,120 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="168.0" prefWidth="510.0">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="183.0" />
-                                </content>
+                              <ScrollPane layoutX="11.0" layoutY="14.0" prefHeight="124.0" prefWidth="568.0">
+                                 <content>
+                                    <TableView prefHeight="126.0" prefWidth="538.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn prefWidth="75.0" text="C2" />
+                                      </columns>
+                                    </TableView>
+                                 </content>
                               </ScrollPane>
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <DatePicker layoutX="394.0" layoutY="206.0" />
+                              <TextField layoutX="25.0" layoutY="206.0" />
+                              <TextField layoutX="215.0" layoutY="207.0" />
                            </children></AnchorPane>
                      </content>
                 </Tab>
                   <Tab text="Coches">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
+                                 <content>
+                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="ID" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <DatePicker layoutX="394.0" layoutY="206.0" />
+                              <TextField layoutX="25.0" layoutY="206.0" />
+                              <TextField layoutX="215.0" layoutY="207.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
                   </Tab>
                   <Tab text="Vendedores">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
+                                 <content>
+                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="ID" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <DatePicker layoutX="394.0" layoutY="206.0" />
+                              <TextField layoutX="25.0" layoutY="206.0" />
+                              <TextField layoutX="215.0" layoutY="207.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
                   </Tab>
                   <Tab text="Clientes">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
+                                 <content>
+                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="ID" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <DatePicker layoutX="394.0" layoutY="206.0" />
+                              <TextField layoutX="25.0" layoutY="206.0" />
+                              <TextField layoutX="215.0" layoutY="207.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
                   </Tab>
                   <Tab text="Reparaciones">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                  </Tab>
-                  <Tab text="Coches">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
+                                 <content>
+                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="ID" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
+                              <DatePicker layoutX="394.0" layoutY="206.0" />
+                              <TextField layoutX="25.0" layoutY="206.0" />
+                              <TextField layoutX="215.0" layoutY="207.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
                   </Tab>
               </tabs>
             </TabPane>

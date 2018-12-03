@@ -5,9 +5,11 @@
  */
 package vista;
 
+import empresasegundamano.HibernateUtil;
 import java.net.URL;
 import pojos.Cliente;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +22,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import pojos.Proveedor;
+
 
 /**
  *
@@ -50,18 +57,21 @@ public class ControladorVentana implements Initializable{
     @FXML
     private TableColumn fecha;
     private ObservableList <ClienteP>listaproveedores = FXCollections.observableArrayList();
+    private Session sesion;
     
     @FXML
     private void darAlta(ActionEvent event ){
-        String auxid=null,auxname=null,auxdata=null;
+        String auxid=null,auxname=null;
+        Date auxfecha=null;
         System.out.println("Click en alta, datos: ");
+        sesion.beginTransaction();
+        
         if(!texId.getText().isEmpty()){
             System.out.println(texId.getText());
             auxid=texId.getText();
             texId.setText(vaciadorString);}
         else{
             System.out.println("No tiene id");
-            auxid="nada";
         }
         if(!texName.getText().isEmpty()){
             System.out.println(texName.getText());
@@ -70,20 +80,22 @@ public class ControladorVentana implements Initializable{
         }
         else{
             System.out.println("No tiene nombre");
-            auxname="nada";
         }
         try{
             System.out.println(fechaAlta.getValue().toString());
-            auxdata=fechaAlta.getValue().toString();
+            int dia=fechaAlta.getValue().getDayOfMonth();
+            int mes=fechaAlta.getValue().getMonthValue();
+            int año=fechaAlta.getValue().getYear();
+            auxfecha= new Date(dia,mes,año);
             fechaAlta.setValue(vaciadorAlta);
         }
         catch(RuntimeException rte1){
             System.out.println("Non se introduxo Data");
-            auxdata="nada";
         }
-        
-        ClienteP e=new ClienteP(auxid,auxname,auxdata);
-        listaproveedores.add(e);
+        Proveedor p=new Proveedor(auxname,auxfecha);
+        sesion.save(p);
+        sesion.
+//        listaproveedores.add(e);
         refrescar(listaproveedores);
     }
     
@@ -109,6 +121,7 @@ public class ControladorVentana implements Initializable{
         id.setCellValueFactory(new PropertyValueFactory("id"));
         nombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         fecha.setCellValueFactory(new PropertyValueFactory("fecha"));
+        sesion=HibernateUtil.getSession();
     }
     public void refrescar(ObservableList ol){
         tablaProveedores.setItems(ol);

@@ -9,7 +9,17 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">usbw</property>
     
-    
-    
+    <mapping resource="mapeos/Proveedor.hbm.xml"/>
+    <mapping resource="mapeos/Cliente.hbm.xml"/> 
+    <mapping resource="mapeos/Coche.hbm.xml"/>
+    <mapping resource="mapeos/Exposicion.hbm.xml"/>
+    <mapping resource="mapeos/Reparacion.hbm.xml"/>   
+    <mapping resource="mapeos/ReparacionChapa.hbm.xml"/>
+    <mapping resource="mapeos/ReparacionElectrica.hbm.xml"/>
+    <mapping resource="mapeos/ReparacionMecanica.hbm.xml"/>
+    <mapping resource="mapeos/Taller.hbm.xml"/>
+    <mapping resource="mapeos/Vendedor.hbm.xml"/>
+    <mapping resource="mapeos/VendedorAsalariados.hbm.xml"/>
+    <mapping resource="mapeos/VendedorComision.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

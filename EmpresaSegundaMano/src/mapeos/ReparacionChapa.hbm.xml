@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 dec, 2018 12:01:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="mapeos.ReparacionChapa" table="REPARACIONCHAPA">
+        <id name="idreparacion" type="java.lang.Integer">
+            <column name="IDREPARACION" />
+            <generator class="assigned" />
+        </id>
+        <property name="colorchapa" type="java.lang.String">
+            <column name="COLORCHAPA" />
+        </property>
+        <one-to-one name="reparacion" class="mapeos.Reparacion"></one-to-one>
+    </class>
+</hibernate-mapping>

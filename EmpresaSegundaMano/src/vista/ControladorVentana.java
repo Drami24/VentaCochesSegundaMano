@@ -94,7 +94,7 @@ public class ControladorVentana implements Initializable{
             System.out.println("Non se introduxo Data");
         }
         
-        Proveedor p=new Proveedor(auxname,auxfecha);
+        Proveedor p=new Proveedor(1,auxname,auxfecha);
         
         sesion.beginTransaction();
         sesion.saveOrUpdate(p);

@@ -51,8 +51,8 @@ public class Proveedor implements Serializable {
     public Proveedor() {
     }
 
-    public Proveedor (String nombre, Date fechaalta) {
-        
+    public Proveedor (Integer idProveedor,String nombre, Date fechaalta) {
+        this.idproveedor=idProveedor;
         this.nombre = nombre;
         this.fechaalta = fechaalta;
         cocheSet=new HashSet<>();

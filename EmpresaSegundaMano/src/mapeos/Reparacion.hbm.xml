@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 dec, 2018 12:01:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="mapeos.Reparacion" table="REPARACION">
+        <id name="idreparacion" type="java.lang.Integer">
+            <column name="IDREPARACION" />
+            <generator class="assigned" />
+        </id>
+        <property name="fechareparacion" type="java.util.Date">
+            <column name="FECHAREPARACION" />
+        </property>
+        <property name="descripcion" type="java.lang.String">
+            <column name="DESCRIPCION" />
+        </property>
+        <one-to-one name="reparacionChapa" class="mapeos.ReparacionChapa"></one-to-one>
+        <many-to-one name="taller" class="mapeos.Taller" fetch="join">
+            <column name="TALLER" />
+        </many-to-one>
+        <many-to-one name="coche" class="mapeos.Coche" fetch="join">
+            <column name="COCHE" />
+        </many-to-one>
+        <one-to-one name="reparacionMecanica" class="mapeos.ReparacionMecanica"></one-to-one>
+        <one-to-one name="reparacionElectrica" class="mapeos.ReparacionElectrica"></one-to-one>
+    </class>
+</hibernate-mapping>

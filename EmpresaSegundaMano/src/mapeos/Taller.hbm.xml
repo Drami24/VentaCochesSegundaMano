@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 dec, 2018 12:01:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="mapeos.Taller" table="TALLER">
+        <id name="idtaller" type="java.lang.Integer">
+            <column name="IDTALLER" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="java.lang.String">
+            <column name="NOMBRE" />
+        </property>
+        <set name="reparacionSet" table="REPARACION" inverse="false" lazy="true">
+            <key>
+                <column name="IDTALLER" />
+            </key>
+            <one-to-many class="mapeos.Reparacion" />
+        </set>
+    </class>
+</hibernate-mapping>

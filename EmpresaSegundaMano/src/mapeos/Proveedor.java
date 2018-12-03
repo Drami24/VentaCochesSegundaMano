@@ -7,6 +7,7 @@ package mapeos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -50,14 +51,16 @@ public class Proveedor implements Serializable {
     public Proveedor() {
     }
 
-    public Proveedor(Integer idproveedor) {
-        this.idproveedor = idproveedor;
+    public Proveedor (String nombre, Date fechaalta) {
+        
+        this.nombre = nombre;
+        this.fechaalta = fechaalta;
+        cocheSet=new HashSet<>();
     }
 
-    public Proveedor(Integer idproveedor, String nombre) {
-        this.idproveedor = idproveedor;
-        this.nombre = nombre;
-    }
+    
+        
+    
 
     public Integer getIdproveedor() {
         return idproveedor;

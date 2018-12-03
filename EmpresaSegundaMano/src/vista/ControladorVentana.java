@@ -6,6 +6,7 @@
 package vista;
 
 import empresasegundamano.HibernateUtil;
+import empresasegundamano.NewHibernateUtil;
 import java.net.URL;
 import pojos.Cliente;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import pojos.Proveedor;
+import mapeos.Proveedor;
 
 
 /**
@@ -56,7 +57,7 @@ public class ControladorVentana implements Initializable{
     
     @FXML
     private TableColumn fecha;
-    private ObservableList <ClienteP>listaproveedores = FXCollections.observableArrayList();
+//    private ObservableList <ClienteP>listaproveedores = FXCollections.observableArrayList();
     private Session sesion;
     
     @FXML
@@ -64,7 +65,7 @@ public class ControladorVentana implements Initializable{
         String auxid=null,auxname=null;
         Date auxfecha=null;
         System.out.println("Click en alta, datos: ");
-        sesion.beginTransaction();
+        
         
         if(!texId.getText().isEmpty()){
             System.out.println(texId.getText());
@@ -92,11 +93,14 @@ public class ControladorVentana implements Initializable{
         catch(RuntimeException rte1){
             System.out.println("Non se introduxo Data");
         }
+        
         Proveedor p=new Proveedor(auxname,auxfecha);
-        sesion.save(p);
-        sesion.
+        
+        sesion.beginTransaction();
+        sesion.saveOrUpdate(p);
+        sesion.getTransaction().commit();
 //        listaproveedores.add(e);
-        refrescar(listaproveedores);
+//        refrescar(listaproveedores);
     }
     
     @FXML
@@ -108,8 +112,8 @@ public class ControladorVentana implements Initializable{
     
     @FXML
     private void Modificar (ActionEvent event ){
-        ClienteP e=(ClienteP)tablaProveedores.getSelectionModel().getSelectedItem();
-        System.out.println(e.id);
+//        ClienteP e=(ClienteP)tablaProveedores.getSelectionModel().getSelectedItem();
+//        System.out.println(e.id);
         //Buscar e modificar no arrayList
         System.out.println("Click en modificar");
         
@@ -121,7 +125,7 @@ public class ControladorVentana implements Initializable{
         id.setCellValueFactory(new PropertyValueFactory("id"));
         nombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         fecha.setCellValueFactory(new PropertyValueFactory("fecha"));
-        sesion=HibernateUtil.getSession();
+        sesion=NewHibernateUtil.getSession();
     }
     public void refrescar(ObservableList ol){
         tablaProveedores.setItems(ol);

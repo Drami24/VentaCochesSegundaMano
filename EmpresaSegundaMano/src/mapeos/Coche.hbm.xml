@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 dec, 2018 12:01:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="mapeos.Coche" table="COCHES">
+        <id name="idcoche" type="java.lang.Integer">
+            <column name="IDCOCHE" />
+            <generator class="assigned" />
+        </id>
+        <property name="marca" type="java.lang.String">
+            <column name="MARCA" />
+        </property>
+        <property name="modelo" type="java.lang.String">
+            <column name="MODELO" />
+        </property>
+        <property name="matricula" type="java.lang.String">
+            <column name="MATRICULA" />
+        </property>
+        <property name="tipo" type="java.lang.String">
+            <column name="TIPO" />
+        </property>
+        <property name="preciocompra" type="double">
+            <column name="PRECIOCOMPRA" />
+        </property>
+        <property name="precioventa" type="double">
+            <column name="PRECIOVENTA" />
+        </property>
+        <property name="reparado" type="boolean">
+            <column name="REPARADO" />
+        </property>
+        <property name="fechaalta" type="java.util.Date">
+            <column name="FECHAALTA" />
+        </property>
+        <property name="fechaventa" type="java.util.Date">
+            <column name="FECHAVENTA" />
+        </property>
+        <many-to-one name="proveedor" class="mapeos.Proveedor" fetch="join">
+            <column name="PROVEEDOR" />
+        </many-to-one>
+        <many-to-one name="exposicion" class="mapeos.Exposicion" fetch="join">
+            <column name="EXPOSICION" />
+        </many-to-one>
+        <many-to-one name="cliente" class="mapeos.Cliente" fetch="join">
+            <column name="CLIENTE" />
+        </many-to-one>
+        <many-to-one name="vendedor" class="mapeos.Vendedor" fetch="join">
+            <column name="VENDEDOR" />
+        </many-to-one>
+        <set name="reparacionSet" table="REPARACION" inverse="false" lazy="true">
+            <key>
+                <column name="IDCOCHE" />
+            </key>
+            <one-to-many class="mapeos.Reparacion" />
+        </set>
+    </class>
+</hibernate-mapping>

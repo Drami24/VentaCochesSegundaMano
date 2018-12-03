@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 dec, 2018 12:01:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="mapeos.Cliente" table="CLIENTE">
+        <id name="apellido1" type="java.lang.String">
+            <column name="APELLIDO1" />
+            <generator class="assigned" />
+        </id>
+        <property name="dni" type="java.lang.String">
+            <column name="DNI" />
+        </property>
+        <property name="nombre" type="java.lang.String">
+            <column name="NOMBRE" />
+        </property>
+        <property name="apellido2" type="java.lang.String">
+            <column name="APELLIDO2" />
+        </property>
+        <property name="movil" type="java.lang.String">
+            <column name="MOVIL" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" />
+        </property>
+        <property name="fechaalta" type="java.util.Date">
+            <column name="FECHAALTA" />
+        </property>
+        <set name="cocheSet" table="COCHE" inverse="false" lazy="true">
+            <key>
+                <column name="APELLIDO1" />
+            </key>
+            <one-to-many class="mapeos.Coche" />
+        </set>
+    </class>
+</hibernate-mapping>

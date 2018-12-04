@@ -62,18 +62,9 @@ public class ControladorVentana implements Initializable{
     
     @FXML
     private void darAlta(ActionEvent event ){
-        String auxid=null,auxname=null;
+        String auxname=null;
         Date auxfecha=null;
         System.out.println("Click en alta, datos: ");
-        
-        
-        if(!texId.getText().isEmpty()){
-            System.out.println(texId.getText());
-            auxid=texId.getText();
-            texId.setText(vaciadorString);}
-        else{
-            System.out.println("No tiene id");
-        }
         if(!texName.getText().isEmpty()){
             System.out.println(texName.getText());
             auxname=texName.getText();
@@ -91,7 +82,7 @@ public class ControladorVentana implements Initializable{
             fechaAlta.setValue(vaciadorAlta);
         }
         catch(RuntimeException rte1){
-            System.out.println("Non se introduxo Data");
+            System.out.println("Non se introdujo fecha");
         }
         
         Proveedor p=new Proveedor(1,auxname,auxfecha);

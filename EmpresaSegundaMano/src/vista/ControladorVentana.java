@@ -36,50 +36,84 @@ import mapeos.Proveedor;
 public class ControladorVentana implements Initializable{
     String vaciadorString="";
     LocalDate vaciadorAlta=null;
+    //Atributos Proveedor:
+    @FXML
+    private TextField texNombreProveedor;
     
     @FXML
-    private TextField texId;
-    
-    @FXML
-    private TextField texName;
-    
-    @FXML
-    private DatePicker fechaAlta;
+    private DatePicker fechaAltaProveedor;
     
     @FXML
     private TableView<Proveedor> tablaProveedores;
     
     @FXML
-    private TableColumn id;
+    private TableColumn idProveedor;
     
     @FXML
-    private TableColumn nombre;
+    private TableColumn nombreProveedor;
     
     @FXML
-    private TableColumn fecha;
+    private TableColumn fechaProveedor;
     private ObservableList <Proveedor>listaProveedores = FXCollections.observableArrayList();
+    
+    //Atributos Cliente
+    @FXML
+    private TableView<Cliente> tablaCliente;
+    @FXML
+    private TableColumn dniCliente;
+    @FXML
+    private TableColumn nombreCliente;
+    @FXML
+    private TableColumn apellido1Cliente;
+    @FXML
+    private TableColumn Apellido2Cliente;
+    @FXML
+    private TableColumn movilCliente;
+    @FXML
+    private TableColumn emailCliente;
+    @FXML
+    private TableColumn fechaCliente;
+    @FXML
+    private TextField texdniCliente;
+    @FXML
+    private TextField texnombreCliente;
+    @FXML
+    private TextField texapel1Cliente;
+    @FXML
+    private TextField texapel2Cliente;
+    @FXML
+    private TextField texmovilCliente;
+    @FXML
+    private TextField texemailCliente;
+    @FXML
+    private DatePicker entfechaCliente;
+    
+    
+    
+    
     private Session sesion;
     
+    //Metodos Proveedor
     @FXML
-    private void darAlta(ActionEvent event ){
+    private void darAltaProveedor(ActionEvent event ){
         String auxname=null;
         Date auxfecha=null;
         System.out.println("Click en alta, datos: ");
-        if(!texName.getText().isEmpty()){
-            System.out.println(texName.getText());
-            auxname=texName.getText();
-            texName.setText(vaciadorString);
+        if(!texNombreProveedor.getText().isEmpty()){
+            System.out.println(texNombreProveedor.getText());
+            auxname=texNombreProveedor.getText();
+            texNombreProveedor.setText(vaciadorString);
         }
         else{
             System.out.println("No tiene nombre");
         }
         try{
-            System.out.println(fechaAlta.getValue().toString());
-            int dia=fechaAlta.getValue().getDayOfMonth();
-            int mes=fechaAlta.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
-            int año=(fechaAlta.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            System.out.println(fechaAltaProveedor.getValue().toString());
+            int dia=fechaAltaProveedor.getValue().getDayOfMonth();
+            int mes=fechaAltaProveedor.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            int año=(fechaAltaProveedor.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
             auxfecha= new Date(año,mes,dia);
-            fechaAlta.setValue(vaciadorAlta);
+            fechaAltaProveedor.setValue(vaciadorAlta);
         }
         catch(RuntimeException rte1){
             System.out.println("Non se introdujo fecha");
@@ -90,34 +124,41 @@ public class ControladorVentana implements Initializable{
         guardarModificar(p);
         listaProveedores.add(p);
         refrescar(listaProveedores);
-       
         //listaproveedores.add(p);
         //refrescar(listaProveedores);
     }
-    
     @FXML
-    private void darBaja(ActionEvent event){
+    private void darBajaProveedor(ActionEvent event){
         Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItem();
-        
         eliminar(p);
-        
     }
     
     @FXML
-    private void Modificar (ActionEvent event ){
+    private void ModificarProveedor (ActionEvent event ){
 //        ClienteP e=(ClienteP)tablaProveedores.getSelectionModel().getSelectedItem();
 //        System.out.println(e.id);
         //Buscar e modificar no arrayList
         System.out.println("Click en modificar");
         
     }
+    //Metodos Cliente
+    @FXML
+    public void darAltaCliente(ActionEvent event){
+        texdniCliente.setText("Holiii");
+        texnombreCliente.setText("Holiii");
+        texapel1Cliente.setText("Holiii");
+        texapel2Cliente.setText("Holiii");
+        texmovilCliente.setText("Holiii");
+        texemailCliente.setText("Holiii");
+        //entfechaCliente.setValue("");
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Buenas, me he iniciado.");
-        id.setCellValueFactory(new PropertyValueFactory("id"));
-        nombre.setCellValueFactory(new PropertyValueFactory("nombre"));
-        fecha.setCellValueFactory(new PropertyValueFactory("fecha"));
+        idProveedor.setCellValueFactory(new PropertyValueFactory("id"));
+        nombreProveedor.setCellValueFactory(new PropertyValueFactory("nombre"));
+        fechaProveedor.setCellValueFactory(new PropertyValueFactory("fecha"));
         sesion=NewHibernateUtil.getSession();
     }
     public void refrescar(ObservableList ol){

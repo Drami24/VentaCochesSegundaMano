@@ -68,18 +68,18 @@ public class Coche implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaventa;
     @JoinColumn(name = "PROVEEDOR", referencedColumnName = "IDPROVEEDOR")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Proveedor proveedor;
     @JoinColumn(name = "EXPOSICION", referencedColumnName = "IDEXPOSICION")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Exposicion exposicion;
     @JoinColumn(name = "CLIENTE", referencedColumnName = "DNI")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Cliente cliente;
     @JoinColumn(name = "VENDEDOR", referencedColumnName = "DNI")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Vendedor vendedor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coche", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coche", fetch = FetchType.LAZY)
     private Set<Reparacion> reparacionSet;
 
     public Coche() {

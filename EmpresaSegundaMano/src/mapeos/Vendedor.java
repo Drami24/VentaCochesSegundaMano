@@ -54,11 +54,11 @@ public class Vendedor implements Serializable {
     @Column(name = "FECHAALTA")
     @Temporal(TemporalType.DATE)
     private Date fechaalta;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "vendedor", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "vendedor", fetch = FetchType.LAZY)
     private VendedorComision vendedorComision;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "vendedor", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "vendedor", fetch = FetchType.LAZY)
     private VendedorAsalariados vendedorAsalariados;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendedor", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendedor", fetch = FetchType.LAZY)
     private Set<Coche> cocheSet;
 
     public Vendedor() {

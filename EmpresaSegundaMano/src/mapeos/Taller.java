@@ -38,7 +38,7 @@ public class Taller implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taller", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taller", fetch = FetchType.LAZY)
     private Set<Reparacion> reparacionSet;
 
     public Taller() {

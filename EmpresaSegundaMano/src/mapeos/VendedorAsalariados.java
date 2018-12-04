@@ -34,7 +34,7 @@ public class VendedorAsalariados implements Serializable {
     @Column(name = "SALARIO")
     private double salario;
     @JoinColumn(name = "DNI", referencedColumnName = "DNI", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Vendedor vendedor;
 
     public VendedorAsalariados() {

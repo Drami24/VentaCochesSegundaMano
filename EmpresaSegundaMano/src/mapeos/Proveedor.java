@@ -52,7 +52,7 @@ public class Proveedor implements Serializable {
     }
 
     public Proveedor (String nombre, Date fechaalta) {
-        
+       
         this.nombre = nombre;
         this.fechaalta = fechaalta;
         cocheSet=new HashSet<>();

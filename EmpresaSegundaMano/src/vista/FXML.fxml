@@ -34,9 +34,8 @@
                               <Button layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#darAlta" text="Alta" />
                               <Button layoutX="96.0" layoutY="216.0" mnemonicParsing="false" onAction="#darBaja" text="Baja" />
                               <Button layoutX="170.0" layoutY="216.0" mnemonicParsing="false" onAction="#Modificar" text="Modificar" />
-                              <DatePicker fx:id="fechaAlta" layoutX="364.0" layoutY="146.0" promptText="Fecha de alta" />
-                              <TextField fx:id="texName" layoutX="189.0" layoutY="146.0" promptText="Nombre" />
-                              <TextField fx:id="texId" layoutX="14.0" layoutY="146.0" promptText="Id" />
+                              <DatePicker fx:id="fechaAlta" layoutX="203.0" layoutY="153.0" promptText="Fecha de alta" />
+                              <TextField fx:id="texName" layoutX="14.0" layoutY="153.0" promptText="Nombre" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -116,22 +115,31 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
+                              <ScrollPane layoutX="8.0" layoutY="14.0" prefHeight="124.0" prefWidth="585.0">
                                  <content>
-                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                    <TableView prefHeight="126.0" prefWidth="566.0">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="ID" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
+                                          <TableColumn prefWidth="75.0" text="DNI" />
+                                          <TableColumn prefWidth="75.0" text="Nombre" />
+                                          <TableColumn prefWidth="87.0" text="1º Apellido" />
+                                          <TableColumn prefWidth="87.0" text="2ºApellido" />
+                                          <TableColumn prefWidth="89.0" text="Movil" />
+                                          <TableColumn prefWidth="64.0" text="Email" />
+                                          <TableColumn prefWidth="84.0" text="F.Alta" />
                                        </columns>
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="394.0" layoutY="206.0" />
-                              <TextField layoutX="25.0" layoutY="206.0" />
-                              <TextField layoutX="215.0" layoutY="207.0" />
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Alta" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Baja" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Modificar" />
+                              <DatePicker layoutX="269.0" layoutY="206.0" promptText="Fecha de alta" />
+                              <TextField layoutX="14.0" layoutY="154.0" prefHeight="0.0" prefWidth="91.0" promptText="DNI" />
+                              <TextField layoutX="124.0" layoutY="154.0" prefHeight="28.0" prefWidth="90.0" promptText="Nombre" />
+                              <TextField layoutX="238.0" layoutY="154.0" prefHeight="28.0" prefWidth="91.0" promptText="1º Apellido" />
+                              <TextField layoutX="349.0" layoutY="153.0" prefHeight="28.0" prefWidth="90.0" promptText="2º Apellido" />
+                              <TextField layoutX="461.0" layoutY="153.0" prefHeight="28.0" prefWidth="90.0" promptText="Movil" />
+                              <TextField layoutX="14.0" layoutY="206.0" prefHeight="28.0" prefWidth="200.0" promptText="Correo electrónico" />
                            </children>
                         </AnchorPane>
                      </content>

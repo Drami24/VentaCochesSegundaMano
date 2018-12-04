@@ -85,7 +85,7 @@ public class ControladorVentana implements Initializable{
             System.out.println("Non se introdujo fecha");
         }
         
-        Proveedor p=new Proveedor(1,auxname,auxfecha);
+        Proveedor p=new Proveedor(auxname,auxfecha);
         
         guardarModificar(p);
         listaProveedores.add(p);
@@ -100,6 +100,7 @@ public class ControladorVentana implements Initializable{
         Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItem();
         
         eliminar(p);
+        
     }
     
     @FXML

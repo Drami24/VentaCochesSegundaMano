@@ -47,7 +47,7 @@ public class ControladorVentana implements Initializable{
     private DatePicker fechaAlta;
     
     @FXML
-    private TableView tablaProveedores;
+    private TableView<Proveedor> tablaProveedores;
     
     @FXML
     private TableColumn id;
@@ -57,7 +57,7 @@ public class ControladorVentana implements Initializable{
     
     @FXML
     private TableColumn fecha;
-    private ObservableList <Proveedor>listaproveedores = FXCollections.observableArrayList();
+    private ObservableList <Proveedor>listaProveedores = FXCollections.observableArrayList();
     private Session sesion;
     
     @FXML
@@ -85,8 +85,8 @@ public class ControladorVentana implements Initializable{
         try{
             System.out.println(fechaAlta.getValue().toString());
             int dia=fechaAlta.getValue().getDayOfMonth();
-            int mes=fechaAlta.getValue().getMonthValue();
-            int año=fechaAlta.getValue().getYear();
+            int mes=fechaAlta.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            int año=(fechaAlta.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
             auxfecha= new Date(año,mes,dia);
             fechaAlta.setValue(vaciadorAlta);
         }
@@ -94,19 +94,19 @@ public class ControladorVentana implements Initializable{
             System.out.println("Non se introduxo Data");
         }
         
-        Proveedor p=new Proveedor(auxname,auxfecha);
+        Proveedor p=new Proveedor(1,auxname,auxfecha);
         
         guardarModificar(p);
-        listaproveedores.add(p);
-        refrescar(listaproveedores);
+        listaProveedores.add(p);
+        refrescar(listaProveedores);
        
         //listaproveedores.add(p);
-        //refrescar(listaproveedores);
+        //refrescar(listaProveedores);
     }
     
     @FXML
-    private void darBaja(ActionEvent event ){
-        Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItems();
+    private void darBaja(ActionEvent event){
+        Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItem();
         
         eliminar(p);
     }
@@ -130,6 +130,8 @@ public class ControladorVentana implements Initializable{
     }
     public void refrescar(ObservableList ol){
         tablaProveedores.setItems(ol);
+        
+        
     }
     
     
@@ -148,4 +150,8 @@ public class ControladorVentana implements Initializable{
         sesion.clear();
     }
     
+    
+    private void cargarDatos(){
+        
+    }
 }

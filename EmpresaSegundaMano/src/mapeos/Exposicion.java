@@ -41,7 +41,7 @@ public class Exposicion implements Serializable {
     @Basic(optional = false)
     @Column(name = "LUGAR")
     private String lugar;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exposicion", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exposicion", fetch = FetchType.LAZY)
     private Set<Coche> cocheSet;
 
     public Exposicion() {

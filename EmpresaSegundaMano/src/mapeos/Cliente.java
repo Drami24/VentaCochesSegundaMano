@@ -53,7 +53,7 @@ public class Cliente implements Serializable {
     @Column(name = "FECHAALTA")
     @Temporal(TemporalType.DATE)
     private Date fechaalta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Coche> cocheSet;
 
     public Cliente() {

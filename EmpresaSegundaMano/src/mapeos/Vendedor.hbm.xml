@@ -4,15 +4,18 @@
 <!-- Generated 3 dec, 2018 12:01:33 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="mapeos.Vendedor" table="VENDEDOR">
-        <id name="apellido1" type="java.lang.String">
-            <column name="APELLIDO1" />
+        <id name="dni" type="java.lang.String">
+            <column name="DNI" />
             <generator class="assigned" />
         </id>
-        <property name="dni" type="java.lang.String">
-            <column name="DNI" />
-        </property>
+        
+        
         <property name="nombre" type="java.lang.String">
             <column name="NOMBRE" />
+        </property>
+        <property name="apellido1" type="java.lang.String">
+            <column name="APELLIDO1" />
+            
         </property>
         <property name="apellido2" type="java.lang.String">
             <column name="APELLIDO2" />
@@ -30,7 +33,7 @@
         <one-to-one name="vendedorAsalariados" class="mapeos.VendedorAsalariados"></one-to-one>
         <set name="cocheSet" table="COCHE" inverse="false" lazy="true">
             <key>
-                <column name="APELLIDO1" />
+                <column name="VENDEDOR" />
             </key>
             <one-to-many class="mapeos.Coche" />
         </set>

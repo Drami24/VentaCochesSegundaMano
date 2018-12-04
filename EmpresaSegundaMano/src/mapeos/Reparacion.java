@@ -44,17 +44,17 @@ public class Reparacion implements Serializable {
     private Date fechareparacion;
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reparacion", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reparacion", fetch = FetchType.LAZY)
     private ReparacionChapa reparacionChapa;
     @JoinColumn(name = "TALLER", referencedColumnName = "IDTALLER")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Taller taller;
     @JoinColumn(name = "COCHE", referencedColumnName = "IDCOCHE")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Coche coche;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reparacion", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reparacion", fetch = FetchType.LAZY)
     private ReparacionMecanica reparacionMecanica;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reparacion", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reparacion", fetch = FetchType.LAZY)
     private ReparacionElectrica reparacionElectrica;
 
     public Reparacion() {

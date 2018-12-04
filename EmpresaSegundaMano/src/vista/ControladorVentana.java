@@ -57,7 +57,7 @@ public class ControladorVentana implements Initializable{
     
     @FXML
     private TableColumn fecha;
-//    private ObservableList <ClienteP>listaproveedores = FXCollections.observableArrayList();
+    private ObservableList <Proveedor>listaproveedores = FXCollections.observableArrayList();
     private Session sesion;
     
     @FXML
@@ -87,27 +87,28 @@ public class ControladorVentana implements Initializable{
             int dia=fechaAlta.getValue().getDayOfMonth();
             int mes=fechaAlta.getValue().getMonthValue();
             int año=fechaAlta.getValue().getYear();
-            auxfecha= new Date(dia,mes,año);
+            auxfecha= new Date(año,mes,dia);
             fechaAlta.setValue(vaciadorAlta);
         }
         catch(RuntimeException rte1){
             System.out.println("Non se introduxo Data");
         }
         
-        Proveedor p=new Proveedor(1,auxname,auxfecha);
+        Proveedor p=new Proveedor(auxname,auxfecha);
         
-        sesion.beginTransaction();
-        sesion.saveOrUpdate(p);
-        sesion.getTransaction().commit();
-//        listaproveedores.add(e);
-//        refrescar(listaproveedores);
+        guardarModificar(p);
+        listaproveedores.add(p);
+        refrescar(listaproveedores);
+       
+        //listaproveedores.add(p);
+        //refrescar(listaproveedores);
     }
     
     @FXML
     private void darBaja(ActionEvent event ){
+        Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItems();
         
-        System.out.println("Click en Baja");
-        
+        eliminar(p);
     }
     
     @FXML
@@ -129,6 +130,22 @@ public class ControladorVentana implements Initializable{
     }
     public void refrescar(ObservableList ol){
         tablaProveedores.setItems(ol);
+    }
+    
+    
+    private void guardarModificar(Object objeto){
+        sesion.beginTransaction();
+        sesion.saveOrUpdate(objeto);
+        sesion.getTransaction().commit();
+        sesion.clear();
+    }
+    
+    
+    private void eliminar(Object objeto){
+        sesion.beginTransaction();
+        sesion.delete(objeto);
+        sesion.getTransaction().commit();
+        sesion.clear();
     }
     
 }

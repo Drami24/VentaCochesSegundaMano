@@ -37,7 +37,7 @@ public class ReparacionMecanica implements Serializable {
     @Column(name = "PARTE")
     private String parte;
     @JoinColumn(name = "IDREPARACION", referencedColumnName = "IDREPARACION", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Reparacion reparacion;
 
     public ReparacionMecanica() {

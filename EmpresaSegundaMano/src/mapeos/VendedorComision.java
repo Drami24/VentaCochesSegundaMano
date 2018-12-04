@@ -34,7 +34,7 @@ public class VendedorComision implements Serializable {
     @Column(name = "COMISION")
     private double comision;
     @JoinColumn(name = "DNI", referencedColumnName = "DNI", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Vendedor vendedor;
 
     public VendedorComision() {

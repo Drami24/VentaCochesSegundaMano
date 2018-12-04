@@ -38,21 +38,21 @@ public class Proveedor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDPROVEEDOR")
-    private Integer idproveedor;
+    private int idproveedor;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
     @Column(name = "FECHAALTA")
     @Temporal(TemporalType.DATE)
     private Date fechaalta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedor", fetch = FetchType.LAZY)
     private Set<Coche> cocheSet;
 
     public Proveedor() {
     }
 
-    public Proveedor (Integer idProveedor,String nombre, Date fechaalta) {
-        this.idproveedor=idProveedor;
+    public Proveedor (String nombre, Date fechaalta) {
+        
         this.nombre = nombre;
         this.fechaalta = fechaalta;
         cocheSet=new HashSet<>();
@@ -62,11 +62,11 @@ public class Proveedor implements Serializable {
         
     
 
-    public Integer getIdproveedor() {
+    public int getIdproveedor() {
         return idproveedor;
     }
 
-    public void setIdproveedor(Integer idproveedor) {
+    public void setIdproveedor(int idproveedor) {
         this.idproveedor = idproveedor;
     }
 
@@ -95,25 +95,10 @@ public class Proveedor implements Serializable {
         this.cocheSet = cocheSet;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idproveedor != null ? idproveedor.hashCode() : 0);
-        return hash;
-    }
+    
+    
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Proveedor)) {
-            return false;
-        }
-        Proveedor other = (Proveedor) object;
-        if ((this.idproveedor == null && other.idproveedor != null) || (this.idproveedor != null && !this.idproveedor.equals(other.idproveedor))) {
-            return false;
-        }
-        return true;
-    }
+   
 
     @Override
     public String toString() {

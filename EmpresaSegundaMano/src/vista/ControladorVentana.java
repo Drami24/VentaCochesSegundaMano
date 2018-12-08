@@ -83,14 +83,6 @@ public class ControladorVentana implements Initializable{
     private void darAltaProveedor(ActionEvent event ){
         String auxname=null;
         Date auxfecha=null;
-        if(!texNombreProveedor.getText().isEmpty()){
-            System.out.println(texNombreProveedor.getText());
-            auxname=texNombreProveedor.getText();
-            texNombreProveedor.setText(vaciadorString);
-        }
-        else{
-            System.out.println("No tiene nombre");
-        }
         try{
             System.out.println(fechaAltaProveedor.getValue().toString());
             int dia=fechaAltaProveedor.getValue().getDayOfMonth();
@@ -98,36 +90,62 @@ public class ControladorVentana implements Initializable{
             int año=(fechaAltaProveedor.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
             auxfecha= new Date(año,mes,dia);
             fechaAltaProveedor.setValue(vaciadorAlta);
+            if(!texNombreProveedor.getText().isEmpty()){
+            System.out.println(texNombreProveedor.getText());
+            auxname=texNombreProveedor.getText();
+            texNombreProveedor.setText(vaciadorString);
+            Proveedor p=new Proveedor(auxname,auxfecha);
+            listaProveedores.add(p);
+            refrescarProveedores();
+            //guardarModificar(p);
+        }
+        else{
+            System.out.println("No tiene nombre");
+        }
         }
         catch(RuntimeException rte1){
             System.out.println("Non se introdujo fecha");
-        }
-        Proveedor p=new Proveedor(auxname,auxfecha);
-        System.out.println(p.getIdproveedor()+","+p.getFechaalta());
-        //guardarModificar(p);
-        listaProveedores.add(p);
-        refrescarProveedores();
+        } 
     }
     @FXML
     private void darBajaProveedor(ActionEvent event){
         Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItem();
         listaProveedores.remove(p);
         refrescarProveedores();
-        
         //eliminar(p);
     }
     
     @FXML
     private void ModificarProveedor (ActionEvent event ){
-        Proveedor p=(Proveedor)tablaProveedores.getSelectionModel().getSelectedItem();
-        int aux =tablaProveedores.getSelectionModel().getSelectedIndex();
-        p.setIdproveedor(25);
-        listaProveedores.remove(aux);
-        listaProveedores.add(aux, p);
-        refrescarProveedores();
         
-        System.out.println("Click en modificar");
-        
+        String auxname=null;
+        Date auxfecha=null;
+        try{
+            Proveedor p=(Proveedor)tablaProveedores.getSelectionModel().getSelectedItem();
+            int aux =tablaProveedores.getSelectionModel().getSelectedIndex();
+            int dia=fechaAltaProveedor.getValue().getDayOfMonth();
+            int mes=fechaAltaProveedor.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            int año=(fechaAltaProveedor.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha= new Date(año,mes,dia);
+            fechaAltaProveedor.setValue(vaciadorAlta);
+            if(!texNombreProveedor.getText().isEmpty()){
+            System.out.println(texNombreProveedor.getText());
+            auxname=texNombreProveedor.getText();
+            texNombreProveedor.setText(vaciadorString);
+            p=new Proveedor(auxname,auxfecha);
+            listaProveedores.remove(aux);
+            listaProveedores.add(aux, p);
+            refrescarProveedores();
+            fechaAltaProveedor.setValue(vaciadorAlta);
+            //guardarModificar(p);
+        }
+        else{
+            System.out.println("No tiene nombre");
+        }
+        }
+        catch(RuntimeException rte1){
+            System.out.println("Non se introdujo fecha");
+        }
     }
     //Metodos Cliente
     
@@ -236,7 +254,7 @@ public class ControladorVentana implements Initializable{
         (ObservableValue<? extends Proveedor> observable, Proveedor oldValue, Proveedor newValue) ->{
             proveedorSeleccionado=null;
             proveedorSeleccionado=newValue;
-            System.out.println(proveedorSeleccionado.getIdproveedor());
+            texNombreProveedor.setText(proveedorSeleccionado.getNombre());
         });
     }
     

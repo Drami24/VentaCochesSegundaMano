@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
-
 import empresasegundamano.HibernateUtil;
 import empresasegundamano.NewHibernateUtil;
 import java.net.URL;
@@ -28,51 +22,27 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import mapeos.Proveedor;
 
-
-/**
- *
- * @author a18franciscorm
- */
 public class ControladorVentana implements Initializable{
     String vaciadorString="";
     LocalDate vaciadorAlta=null;
     //Atributos Proveedor:
     @FXML
     private TextField texNombreProveedor;
-    
     @FXML
     private DatePicker fechaAltaProveedor;
-    
     @FXML
     private TableView<Proveedor> tablaProveedores;
-    
     @FXML
-    private TableColumn idProveedor;
-    
+    private TableColumn<Proveedor,Integer> idProveedor;
     @FXML
-    private TableColumn nombreProveedor;
-    
+    private TableColumn<Proveedor,String> nombreProveedor;
     @FXML
-    private TableColumn fechaProveedor;
+    private TableColumn<Proveedor,Date> fechaProveedor;
     private ObservableList <Proveedor>listaProveedores = FXCollections.observableArrayList();
     
     //Atributos Cliente
     @FXML
-    private TableView<Cliente> tablaCliente;
-    @FXML
-    private TableColumn dniCliente;
-    @FXML
-    private TableColumn nombreCliente;
-    @FXML
-    private TableColumn apellido1Cliente;
-    @FXML
-    private TableColumn Apellido2Cliente;
-    @FXML
-    private TableColumn movilCliente;
-    @FXML
-    private TableColumn emailCliente;
-    @FXML
-    private TableColumn fechaCliente;
+    private TableView<Cliente> tablaClientes;
     @FXML
     private TextField texdniCliente;
     @FXML
@@ -87,10 +57,21 @@ public class ControladorVentana implements Initializable{
     private TextField texemailCliente;
     @FXML
     private DatePicker entfechaCliente;
-    
-    
-    
-    
+    private ObservableList <Cliente>listaClientes = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<Cliente,String>dniCliente;
+    @FXML
+    private TableColumn<Cliente,String>nombreCliente;
+    @FXML
+    private TableColumn<Cliente,String>apellido1Cliente;
+    @FXML
+    private TableColumn<Cliente,String>apellido2Cliente;
+    @FXML
+    private TableColumn<Cliente,String>movilCliente;
+    @FXML
+    private TableColumn<Cliente,String>emailCliente;
+    @FXML
+    private TableColumn<Cliente,Date>fechaCliente;
     private Session sesion;
     
     //Metodos Proveedor
@@ -98,7 +79,6 @@ public class ControladorVentana implements Initializable{
     private void darAltaProveedor(ActionEvent event ){
         String auxname=null;
         Date auxfecha=null;
-        System.out.println("Click en alta, datos: ");
         if(!texNombreProveedor.getText().isEmpty()){
             System.out.println(texNombreProveedor.getText());
             auxname=texNombreProveedor.getText();
@@ -118,14 +98,11 @@ public class ControladorVentana implements Initializable{
         catch(RuntimeException rte1){
             System.out.println("Non se introdujo fecha");
         }
-        
         Proveedor p=new Proveedor(auxname,auxfecha);
-        
-        guardarModificar(p);
+        System.out.println(p.getIdproveedor()+","+p.getFechaalta());
+        //guardarModificar(p);
         listaProveedores.add(p);
-        refrescar(listaProveedores);
-        //listaproveedores.add(p);
-        //refrescar(listaProveedores);
+        refrescarProveedores(listaProveedores);
     }
     @FXML
     private void darBajaProveedor(ActionEvent event){
@@ -142,29 +119,55 @@ public class ControladorVentana implements Initializable{
         
     }
     //Metodos Cliente
+    
     @FXML
     public void darAltaCliente(ActionEvent event){
-        texdniCliente.setText("Holiii");
-        texnombreCliente.setText("Holiii");
-        texapel1Cliente.setText("Holiii");
-        texapel2Cliente.setText("Holiii");
-        texmovilCliente.setText("Holiii");
-        texemailCliente.setText("Holiii");
-        //entfechaCliente.setValue("");
+        int dia=entfechaCliente.getValue().getDayOfMonth();
+        int mes=entfechaCliente.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+        int año=(entfechaCliente.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+        Date auxfecha= new Date(año,mes,dia);
+        Cliente c;
+        c = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),texapel1Cliente.getText(),texapel2Cliente.getText(),texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
+        listaClientes.add(c);
+        System.out.println(c.getApellido2());
+        refrescarClientes(listaClientes);
+        texdniCliente.setText(vaciadorString);
+        texnombreCliente.setText(vaciadorString);
+        texapel1Cliente.setText(vaciadorString);
+        texapel2Cliente.setText(vaciadorString);
+        texmovilCliente.setText(vaciadorString);
+        texemailCliente.setText(vaciadorString);
+        entfechaCliente.setValue(vaciadorAlta);
+        
     }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Buenas, me he iniciado.");
-        idProveedor.setCellValueFactory(new PropertyValueFactory("id"));
+        idProveedor.setCellValueFactory(new PropertyValueFactory("idProveedor"));
         nombreProveedor.setCellValueFactory(new PropertyValueFactory("nombre"));
-        fechaProveedor.setCellValueFactory(new PropertyValueFactory("fecha"));
+        fechaProveedor.setCellValueFactory(new PropertyValueFactory<Proveedor,Date>("fechaAlta"));
+        
+        dniCliente.setCellValueFactory(new PropertyValueFactory("dni"));
+        nombreCliente.setCellValueFactory(new PropertyValueFactory("nombre"));
+        apellido1Cliente.setCellValueFactory(new PropertyValueFactory("apellido1"));
+        apellido2Cliente.setCellValueFactory(new PropertyValueFactory("apellido2"));
+        movilCliente.setCellValueFactory(new PropertyValueFactory("movil"));
+        emailCliente.setCellValueFactory(new PropertyValueFactory("email"));
+        fechaCliente.setCellValueFactory(new PropertyValueFactory("fechaAlta"));
+        tablaClientes.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> {
+            Cliente clienteSeleccionado= newValue;
+            System.out.println(clienteSeleccionado.getApellido1());
+        });
+        
         sesion=NewHibernateUtil.getSession();
     }
-    public void refrescar(ObservableList ol){
+    public void refrescarProveedores(ObservableList ol){
         tablaProveedores.setItems(ol);
-        
-        
+    }
+    public void refrescarClientes(ObservableList ol){
+        tablaClientes.setItems(ol);
     }
     
     

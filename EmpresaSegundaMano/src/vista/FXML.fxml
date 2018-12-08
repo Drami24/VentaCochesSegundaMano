@@ -36,8 +36,8 @@
                                  </content>
                               </ScrollPane>
                               <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" onAction="#darAltaCliente" text="Alta" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Baja" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Modificar" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" onAction="#darBajaCliente" text="Baja" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" onAction="#ModificarCliente" text="Modificar" />
                               <DatePicker fx:id="entfechaCliente" layoutX="269.0" layoutY="206.0" promptText="Fecha de alta" />
                               <TextField fx:id="texdniCliente" layoutX="14.0" layoutY="154.0" prefHeight="0.0" prefWidth="91.0" promptText="DNI" />
                               <TextField fx:id="texnombreCliente" layoutX="124.0" layoutY="154.0" prefHeight="28.0" prefWidth="90.0" promptText="Nombre" />

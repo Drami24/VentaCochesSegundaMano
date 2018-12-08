@@ -6,6 +6,7 @@ import pojos.Cliente;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import org.hibernate.Transaction;
 import mapeos.Proveedor;
 
 public class ControladorVentana implements Initializable{
+    Cliente clienteSeleccionado;
     String vaciadorString="";
     LocalDate vaciadorAlta=null;
     //Atributos Proveedor:
@@ -57,6 +59,7 @@ public class ControladorVentana implements Initializable{
     private TextField texemailCliente;
     @FXML
     private DatePicker entfechaCliente;
+    
     private ObservableList <Cliente>listaClientes = FXCollections.observableArrayList();
     @FXML
     private TableColumn<Cliente,String>dniCliente;
@@ -140,7 +143,26 @@ public class ControladorVentana implements Initializable{
         entfechaCliente.setValue(vaciadorAlta);
         
     }
+    @FXML
+    private void darBajaCliente(ActionEvent event){
+        Cliente e=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
+        listaClientes.remove(e);
+        System.out.println("Eliminado cliente "+e.getDni());
+        
+        //eliminar(c);
+    }
     
+    @FXML
+    private void ModificarCliente (ActionEvent event ){
+        Cliente e=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
+        int aux=tablaClientes.getSelectionModel().getSelectedIndex();
+        e.setEmail("chiscazo.paco@gmai.com");
+        listaClientes.remove(aux);
+        listaClientes.add(aux, e);
+        refrescarClientes(listaClientes);
+        System.out.println("Editado cliente "+e.getDni());
+        
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Buenas, me he iniciado.");
@@ -155,13 +177,18 @@ public class ControladorVentana implements Initializable{
         movilCliente.setCellValueFactory(new PropertyValueFactory("movil"));
         emailCliente.setCellValueFactory(new PropertyValueFactory("email"));
         fechaCliente.setCellValueFactory(new PropertyValueFactory("fechaAlta"));
-        tablaClientes.getSelectionModel().selectedItemProperty().addListener(
-        (observable, oldValue, newValue) -> {
-            Cliente clienteSeleccionado= newValue;
-            System.out.println(clienteSeleccionado.getApellido1());
-        });
-        
         sesion=NewHibernateUtil.getSession();
+        tablaClientes.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) -> {
+            clienteSeleccionado= newValue;
+            texdniCliente.setText(clienteSeleccionado.getDni());
+            texnombreCliente.setText(clienteSeleccionado.getNombre());
+            texapel1Cliente.setText(clienteSeleccionado.getApellido1());
+            texapel2Cliente.setText(clienteSeleccionado.getApellido2());
+            texmovilCliente.setText(clienteSeleccionado.getMovil());
+            texemailCliente.setText(clienteSeleccionado.getEmail());
+            entfechaCliente.setValue(vaciadorAlta);
+        });
     }
     public void refrescarProveedores(ObservableList ol){
         tablaProveedores.setItems(ol);

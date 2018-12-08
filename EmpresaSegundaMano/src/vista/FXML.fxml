@@ -59,7 +59,7 @@
                                       <columns>
                                         <TableColumn fx:id="idProveedor" prefWidth="75.0" text="ID" />
                                         <TableColumn fx:id="nombreProveedor" prefWidth="95.0" text="Nombre" />
-                                          <TableColumn fx:id="fechaProveedor" prefWidth="92.0" text="Alta" />
+                                          <TableColumn fx:id="fechaProveedor" prefWidth="193.0" text="Alta" />
                                       </columns>
                                     </TableView>
                                  </content>
@@ -96,6 +96,32 @@
                            </children>
                         </AnchorPane>
                      </content>
+                  </Tab>
+                  <Tab text="Talleres">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="27.0" layoutY="14.0" prefHeight="128.0" prefWidth="535.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="517.0">
+                                       <children>
+                                          <TableView fx:id="tablaTaller" layoutX="2.0" prefHeight="143.0" prefWidth="514.0">
+                                            <columns>
+                                              <TableColumn fx:id="idTaller" prefWidth="75.0" text="ID" />
+                                              <TableColumn fx:id="nombreTaller" prefWidth="75.0" text="Nome" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                              <Button fx:id="altaTaller" layoutX="28.0" layoutY="273.0" mnemonicParsing="false" onAction="#altaTaller" text="Alta" />
+                              <Button fx:id="bajaTaller" layoutX="103.0" layoutY="273.0" mnemonicParsing="false" onAction="#bajaTaller" text="Baja" />
+                              <Button fx:id="modificarTaller" layoutX="177.0" layoutY="273.0" mnemonicParsing="false" onAction="#modificacionTaller" text="Modificación" />
+                              <TextField fx:id="texNombreTaller" layoutX="28.0" layoutY="181.0" promptText="Nombre" />
+                           </children>
+                        </AnchorPane>
+                    </content>
                   </Tab>
                 <Tab text="Exposiciones">
                      <content>

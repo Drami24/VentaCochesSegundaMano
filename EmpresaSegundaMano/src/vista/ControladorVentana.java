@@ -22,6 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import mapeos.Proveedor;
+import pojos.Taller;
 
 public class ControladorVentana implements Initializable{
     Cliente clienteSeleccionado= null;
@@ -77,6 +78,20 @@ public class ControladorVentana implements Initializable{
     @FXML
     private TableColumn<Cliente,Date>fechaCliente;
     private Session sesion;
+    
+    
+    //Atributos Taller 
+    private ObservableList <Taller>listaTalleres = FXCollections.observableArrayList();
+    @FXML
+    private  TableView<Taller>tablaTaller;
+    @FXML
+    private  TableColumn<Taller,Integer>idTaller;
+    @FXML
+    private  TableColumn<Taller,String>nombreTaller;
+    @FXML
+    private  TextField texNombreTaller;
+    private Taller tallerSeleccionado;
+
     
     //Metodos Proveedor
     @FXML
@@ -222,7 +237,39 @@ public class ControladorVentana implements Initializable{
             entfechaCliente.setValue(vaciadorAlta);
         }
     }
-    
+    //Metodos Taller
+    @FXML
+    private void altaTaller(ActionEvent event){
+        if(texNombreTaller.getText().isEmpty()){
+            System.out.println("Falta el nombre.");
+        }else{
+            Taller t=new Taller(texNombreTaller.getText());
+            listaTalleres.add(t);
+            refrescarTalleres();
+            texNombreTaller.setText(vaciadorString);
+        }
+    }
+    @FXML
+    private void bajaTaller(ActionEvent event){
+        Taller t= (Taller)tablaTaller.getSelectionModel().getSelectedItem();
+        listaTalleres.remove(t);
+        refrescarTalleres();
+        texNombreTaller.setText(vaciadorString);
+    }
+    @FXML
+    private void modificacionTaller(ActionEvent event){
+        Taller t= (Taller)tablaTaller.getSelectionModel().getSelectedItem();
+        int aux = tablaTaller.getSelectionModel().getSelectedIndex();
+        if(texNombreTaller.getText().isEmpty()){
+            System.out.println("Falta nombre");
+        }else{
+            t.setNombre(texNombreTaller.getText());
+            listaTalleres.set(aux, t);
+            refrescarTalleres();
+            texNombreTaller.setText(vaciadorString);
+        }
+
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Buenas, me he iniciado.");
@@ -237,6 +284,12 @@ public class ControladorVentana implements Initializable{
         movilCliente.setCellValueFactory(new PropertyValueFactory("movil"));
         emailCliente.setCellValueFactory(new PropertyValueFactory("email"));
         fechaCliente.setCellValueFactory(new PropertyValueFactory("fechaAlta"));
+        
+        idTaller.setCellValueFactory(new PropertyValueFactory("idTaller"));
+        nombreTaller.setCellValueFactory(new PropertyValueFactory("nombre"));
+        
+        
+        
         sesion=NewHibernateUtil.getSession();
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
         (ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) -> {
@@ -256,6 +309,12 @@ public class ControladorVentana implements Initializable{
             proveedorSeleccionado=newValue;
             texNombreProveedor.setText(proveedorSeleccionado.getNombre());
         });
+        tablaTaller.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Taller> observable, Taller oldValue, Taller newValue) ->{
+           tallerSeleccionado=null;
+            tallerSeleccionado=newValue;
+            texNombreTaller.setText(tallerSeleccionado.getNombre());
+        });
     }
     
     public void refrescarProveedores(){
@@ -264,6 +323,10 @@ public class ControladorVentana implements Initializable{
     
     public void refrescarClientes(){
         tablaClientes.setItems(listaClientes);
+    }
+    
+    public void refrescarTalleres(){
+        tablaTaller.setItems(listaTalleres);
     }
     
     private void guardarModificar(Object objeto){

@@ -2,7 +2,7 @@ package vista;
 import empresasegundamano.HibernateUtil;
 import empresasegundamano.NewHibernateUtil;
 import java.net.URL;
-import pojos.Cliente;
+import pojos.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -21,9 +21,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import mapeos.Proveedor;
-import pojos.Taller;
-
 public class ControladorVentana implements Initializable{
     Cliente clienteSeleccionado= null;
     Proveedor proveedorSeleccionado= null;
@@ -61,7 +58,6 @@ public class ControladorVentana implements Initializable{
     private TextField texemailCliente;
     @FXML
     private DatePicker entfechaCliente;
-    
     private ObservableList <Cliente>listaClientes = FXCollections.observableArrayList();
     @FXML
     private TableColumn<Cliente,String>dniCliente;
@@ -91,7 +87,24 @@ public class ControladorVentana implements Initializable{
     @FXML
     private  TextField texNombreTaller;
     private Taller tallerSeleccionado;
-
+    
+    
+    //Atributos Exposicion
+    private ObservableList <Exposicion>listaExpos = FXCollections.observableArrayList();
+    @FXML
+    private TableView<Exposicion> tablaExpo;
+    @FXML 
+    private TableColumn<Exposicion,Integer> idExpo;
+    @FXML 
+    private TableColumn<Exposicion,String> nombreExpo;
+    @FXML 
+    private TableColumn<Exposicion,String> lugarExpo;
+    @FXML 
+    private TextField texNombreExpo;
+    @FXML 
+    private TextField texLugarExpo;
+    private Exposicion exposicionSeleccionada;
+    
     
     //Metodos Proveedor
     @FXML
@@ -162,8 +175,9 @@ public class ControladorVentana implements Initializable{
             System.out.println("Non se introdujo fecha");
         }
     }
-    //Metodos Cliente
     
+    
+    //Metodos Cliente
     @FXML
     public void darAltaCliente(ActionEvent event){
          Date auxfecha= null;
@@ -237,6 +251,8 @@ public class ControladorVentana implements Initializable{
             entfechaCliente.setValue(vaciadorAlta);
         }
     }
+    
+    
     //Metodos Taller
     @FXML
     private void altaTaller(ActionEvent event){
@@ -270,6 +286,47 @@ public class ControladorVentana implements Initializable{
         }
 
     }
+    
+    
+    //Metodos Exposicion
+    @FXML
+    private void altaExpo (ActionEvent event){
+        if(texNombreExpo.getText().isEmpty() || texLugarExpo.getText().isEmpty()){
+            System.out.println("Faltan datos");
+        }else{
+            Exposicion e= new Exposicion();
+            e.setNombre(texNombreExpo.getText());
+            e.setLugar(texLugarExpo.getText());
+            listaExpos.add(e);
+            texNombreExpo.setText(vaciadorString);
+            texLugarExpo.setText(vaciadorString);
+            refresarExposiciones();
+        }
+    }
+    @FXML
+    private void baixaExpo (ActionEvent event){
+        Exposicion e= (Exposicion)tablaExpo.getSelectionModel().getSelectedItem();
+        listaExpos.remove(e);
+        texNombreExpo.setText(vaciadorString);
+        texLugarExpo.setText(vaciadorString);
+        refresarExposiciones();
+    }
+    @FXML
+    private void modificacionExpo (ActionEvent event){
+        Exposicion e= (Exposicion)tablaExpo.getSelectionModel().getSelectedItem();
+        int aux=tablaExpo.getSelectionModel().getSelectedIndex();
+        if(texNombreExpo.getText().isEmpty() || texLugarExpo.getText().isEmpty()){
+            System.out.println("Faltan datos");
+        }else{
+            e.setNombre(texNombreExpo.getText());
+            e.setLugar(texLugarExpo.getText());
+            listaExpos.set(aux, e);
+            texNombreExpo.setText(vaciadorString);
+            texLugarExpo.setText(vaciadorString);
+            refresarExposiciones();
+        }
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Buenas, me he iniciado.");
@@ -288,7 +345,9 @@ public class ControladorVentana implements Initializable{
         idTaller.setCellValueFactory(new PropertyValueFactory("idTaller"));
         nombreTaller.setCellValueFactory(new PropertyValueFactory("nombre"));
         
-        
+        nombreExpo.setCellValueFactory(new PropertyValueFactory("nombre"));
+        lugarExpo.setCellValueFactory(new PropertyValueFactory("lugar"));
+        idExpo.setCellValueFactory(new PropertyValueFactory("idExposicion"));
         
         sesion=NewHibernateUtil.getSession();
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
@@ -315,6 +374,15 @@ public class ControladorVentana implements Initializable{
             tallerSeleccionado=newValue;
             texNombreTaller.setText(tallerSeleccionado.getNombre());
         });
+        
+        tablaExpo.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Exposicion> observable, Exposicion oldValue, Exposicion newValue) ->{
+           exposicionSeleccionada=null;
+            exposicionSeleccionada=newValue;
+            texNombreExpo.setText(exposicionSeleccionada.getNombre());
+            texLugarExpo.setText(exposicionSeleccionada.getLugar());
+            
+        });
     }
     
     public void refrescarProveedores(){
@@ -327,6 +395,9 @@ public class ControladorVentana implements Initializable{
     
     public void refrescarTalleres(){
         tablaTaller.setItems(listaTalleres);
+    }
+    public void refresarExposiciones(){
+        tablaExpo.setItems(listaExpos);
     }
     
     private void guardarModificar(Object objeto){

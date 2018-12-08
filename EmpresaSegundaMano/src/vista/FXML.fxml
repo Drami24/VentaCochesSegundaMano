@@ -129,21 +129,20 @@
                            <children>
                               <ScrollPane layoutX="11.0" layoutY="14.0" prefHeight="124.0" prefWidth="568.0">
                                  <content>
-                                    <TableView prefHeight="126.0" prefWidth="538.0">
+                                    <TableView fx:id="tablaExpo" prefHeight="126.0" prefWidth="538.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="ID" />
-                                        <TableColumn prefWidth="75.0" text="Nombre" />
-                                          <TableColumn prefWidth="75.0" text="Lugar" />
+                                        <TableColumn fx:id="idExpo" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="nombreExpo" prefWidth="75.0" text="Nombre" />
+                                          <TableColumn fx:id="lugarExpo" prefWidth="75.0" text="Lugar" />
                                       </columns>
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="394.0" layoutY="206.0" />
-                              <TextField layoutX="25.0" layoutY="206.0" />
-                              <TextField layoutX="215.0" layoutY="207.0" />
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" onAction="#altaExpo" text="Alta" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" onAction="#baixaExpo" text="Baja" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" onAction="#modificacionExpo" text="Modificacion" />
+                              <TextField fx:id="texNombreExpo" layoutX="25.0" layoutY="206.0" promptText="Nombre" />
+                              <TextField fx:id="texLugarExpo" layoutX="215.0" layoutY="207.0" promptText="Lugar" />
                            </children></AnchorPane>
                      </content>
                 </Tab>

@@ -24,7 +24,8 @@ import org.hibernate.Transaction;
 import mapeos.Proveedor;
 
 public class ControladorVentana implements Initializable{
-    Cliente clienteSeleccionado;
+    Cliente clienteSeleccionado= null;
+    Proveedor proveedorSeleccionado= null;
     String vaciadorString="";
     LocalDate vaciadorAlta=null;
     //Atributos Proveedor:
@@ -105,19 +106,26 @@ public class ControladorVentana implements Initializable{
         System.out.println(p.getIdproveedor()+","+p.getFechaalta());
         //guardarModificar(p);
         listaProveedores.add(p);
-        refrescarProveedores(listaProveedores);
+        refrescarProveedores();
     }
     @FXML
     private void darBajaProveedor(ActionEvent event){
         Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItem();
-        eliminar(p);
+        listaProveedores.remove(p);
+        refrescarProveedores();
+        
+        //eliminar(p);
     }
     
     @FXML
     private void ModificarProveedor (ActionEvent event ){
-//        ClienteP e=(ClienteP)tablaProveedores.getSelectionModel().getSelectedItem();
-//        System.out.println(e.id);
-        //Buscar e modificar no arrayList
+        Proveedor p=(Proveedor)tablaProveedores.getSelectionModel().getSelectedItem();
+        int aux =tablaProveedores.getSelectionModel().getSelectedIndex();
+        p.setIdproveedor(25);
+        listaProveedores.remove(aux);
+        listaProveedores.add(aux, p);
+        refrescarProveedores();
+        
         System.out.println("Click en modificar");
         
     }
@@ -125,15 +133,36 @@ public class ControladorVentana implements Initializable{
     
     @FXML
     public void darAltaCliente(ActionEvent event){
-        int dia=entfechaCliente.getValue().getDayOfMonth();
-        int mes=entfechaCliente.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
-        int año=(entfechaCliente.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
-        Date auxfecha= new Date(año,mes,dia);
-        Cliente c;
-        c = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),texapel1Cliente.getText(),texapel2Cliente.getText(),texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
-        listaClientes.add(c);
-        System.out.println(c.getApellido2());
-        refrescarClientes(listaClientes);
+         Date auxfecha= null;
+        if(texdniCliente.getText().isEmpty() || texnombreCliente.getText().isEmpty() || texapel1Cliente.getText().isEmpty() || texapel2Cliente.getText().isEmpty() || texmovilCliente.getText().isEmpty() || texmovilCliente.getText().isEmpty()){
+            System.out.println("Faltan datos, insercion cancelada");
+        }else{
+            try{
+                int dia=entfechaCliente.getValue().getDayOfMonth();
+                int mes=entfechaCliente.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+                int año=(entfechaCliente.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+                auxfecha= new Date(año,mes,dia);
+            }catch(RuntimeException rte1){
+                System.out.println("Non se introdujo fecha");
+            }
+            Cliente c;
+            c = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),texapel1Cliente.getText(),texapel2Cliente.getText(),texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
+            listaClientes.add(c);
+            refrescarClientes();
+            texdniCliente.setText(vaciadorString);
+            texnombreCliente.setText(vaciadorString);
+            texapel1Cliente.setText(vaciadorString);
+            texapel2Cliente.setText(vaciadorString);
+            texmovilCliente.setText(vaciadorString);
+            texemailCliente.setText(vaciadorString);
+            entfechaCliente.setValue(vaciadorAlta);
+        }
+    }
+    @FXML
+    private void darBajaCliente(ActionEvent event){
+        Cliente e=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
+        listaClientes.remove(e);
+        System.out.println("Eliminado cliente "+e.getDni());
         texdniCliente.setText(vaciadorString);
         texnombreCliente.setText(vaciadorString);
         texapel1Cliente.setText(vaciadorString);
@@ -142,27 +171,40 @@ public class ControladorVentana implements Initializable{
         texemailCliente.setText(vaciadorString);
         entfechaCliente.setValue(vaciadorAlta);
         
-    }
-    @FXML
-    private void darBajaCliente(ActionEvent event){
-        Cliente e=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
-        listaClientes.remove(e);
-        System.out.println("Eliminado cliente "+e.getDni());
-        
         //eliminar(c);
     }
     
     @FXML
     private void ModificarCliente (ActionEvent event ){
+        Date auxfecha= null;
         Cliente e=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
         int aux=tablaClientes.getSelectionModel().getSelectedIndex();
-        e.setEmail("chiscazo.paco@gmai.com");
-        listaClientes.remove(aux);
-        listaClientes.add(aux, e);
-        refrescarClientes(listaClientes);
-        System.out.println("Editado cliente "+e.getDni());
+        if(texdniCliente.getText().isEmpty() || texnombreCliente.getText().isEmpty() || texapel1Cliente.getText().isEmpty() || texapel2Cliente.getText().isEmpty() || texmovilCliente.getText().isEmpty() || texmovilCliente.getText().isEmpty()){
+            System.out.println("Faltan datos, insercion cancelada");
+        }else{
+            try{
+                int dia=entfechaCliente.getValue().getDayOfMonth();
+                int mes=entfechaCliente.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+                int año=(entfechaCliente.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha= new Date(año,mes,dia);
+            }catch(RuntimeException rte1){
+            System.out.println("Non se introdujo fecha");}
         
+            e = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),texapel1Cliente.getText(),texapel2Cliente.getText(),texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
+            listaClientes.remove(aux);
+            listaClientes.add(aux, e);
+            refrescarClientes();
+            System.out.println("Editado cliente "+e.getDni());
+            texdniCliente.setText(vaciadorString);
+            texnombreCliente.setText(vaciadorString);
+            texapel1Cliente.setText(vaciadorString);
+            texapel2Cliente.setText(vaciadorString);
+            texmovilCliente.setText(vaciadorString);
+            texemailCliente.setText(vaciadorString);
+            entfechaCliente.setValue(vaciadorAlta);
+        }
     }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Buenas, me he iniciado.");
@@ -180,6 +222,7 @@ public class ControladorVentana implements Initializable{
         sesion=NewHibernateUtil.getSession();
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
         (ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) -> {
+            clienteSeleccionado= null;
             clienteSeleccionado= newValue;
             texdniCliente.setText(clienteSeleccionado.getDni());
             texnombreCliente.setText(clienteSeleccionado.getNombre());
@@ -189,14 +232,21 @@ public class ControladorVentana implements Initializable{
             texemailCliente.setText(clienteSeleccionado.getEmail());
             entfechaCliente.setValue(vaciadorAlta);
         });
-    }
-    public void refrescarProveedores(ObservableList ol){
-        tablaProveedores.setItems(ol);
-    }
-    public void refrescarClientes(ObservableList ol){
-        tablaClientes.setItems(ol);
+        tablaProveedores.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Proveedor> observable, Proveedor oldValue, Proveedor newValue) ->{
+            proveedorSeleccionado=null;
+            proveedorSeleccionado=newValue;
+            System.out.println(proveedorSeleccionado.getIdproveedor());
+        });
     }
     
+    public void refrescarProveedores(){
+        tablaProveedores.setItems(listaProveedores);
+    }
+    
+    public void refrescarClientes(){
+        tablaClientes.setItems(listaClientes);
+    }
     
     private void guardarModificar(Object objeto){
         sesion.beginTransaction();
@@ -204,7 +254,6 @@ public class ControladorVentana implements Initializable{
         sesion.getTransaction().commit();
         sesion.clear();
     }
-    
     
     private void eliminar(Object objeto){
         sesion.beginTransaction();

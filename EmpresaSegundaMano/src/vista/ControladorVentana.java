@@ -1,12 +1,9 @@
 package vista;
-import empresasegundamano.HibernateUtil;
 import empresasegundamano.NewHibernateUtil;
+import java.awt.Color;
 import java.net.URL;
-import java.time.Instant;
 import pojos.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -14,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
+import javafx.event.EventType;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -23,8 +20,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 public class ControladorVentana implements Initializable{
     Cliente clienteSeleccionado= null;
     Proveedor proveedorSeleccionado= null;
@@ -152,6 +147,39 @@ public class ControladorVentana implements Initializable{
     private TextField texCantidadVendedor;
     @FXML 
     private DatePicker altaVendedor;
+    
+    //Atributos Reparacion
+    
+    
+    private Reparacion reparacionSeleccionada;
+    private ObservableList <Reparacion>listaReparaciones = FXCollections.observableArrayList();
+    private ObservableList opcionReparacion = FXCollections.observableArrayList();
+    @FXML
+    private TableView<Reparacion>tablaReparacion;
+    @FXML
+    private TableColumn<Reparacion,Integer>idReparacion;
+    @FXML
+    private TableColumn<Reparacion,Date>fechaReparacion;
+    @FXML
+    private TableColumn<Reparacion,String>descripcionReparacion;
+    @FXML
+    private TableColumn<Reparacion,Taller>tallerReparacion;
+    @FXML
+    private TableColumn<Reparacion,String>chapaReparacion;
+    @FXML
+    private TableColumn<Reparacion,String>electricaReparacion;
+    @FXML
+    private TableColumn<Reparacion,String>mecanicaReparacion;
+    @FXML
+    private DatePicker entfechaReparacion;
+    @FXML
+    private ComboBox comboReparacion;
+    @FXML
+    private TextField entDescripcionReparacion;
+    @FXML
+    private TextField entTallerReparacion;
+    @FXML
+    private TextField valorReparacion;
     
     
     //Metodos Proveedor
@@ -460,6 +488,112 @@ public class ControladorVentana implements Initializable{
     }
     
     
+    //Metodos Reparacion
+    @FXML
+    private void altaReparacion(ActionEvent event){
+        Date auxfecha;
+        try{
+            int dia=entfechaReparacion.getValue().getDayOfMonth();
+            int mes=entfechaReparacion.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            int año=(entfechaReparacion.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha = new Date(año,mes,dia);
+            if(entDescripcionReparacion.getText().isEmpty() || entTallerReparacion.getText().isEmpty() || comboReparacion.getSelectionModel().isEmpty() || valorReparacion.getText().isEmpty()){
+                System.out.println("Faltan datos, asegurese de llenar todos los campos.");
+            }else{
+                Reparacion c;
+                if(comboReparacion.getSelectionModel().getSelectedItem().equals("Chapa")){
+                    //OLLO COA TRAMPA
+                    Taller t=new Taller("Pepito");
+                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
+                    c =new ReparacionChapa(Color.BLACK,auxfecha,entDescripcionReparacion.getText(),t);
+                }else{
+                    if(comboReparacion.getSelectionModel().getSelectedItem().equals("Eléctrica")){
+                        //OLLO COA TRAMPA
+                        Taller t=new Taller("Pepito");
+                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionElectrica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    }else{
+                        //OLLO COA TRAMPA
+                        Taller t=new Taller("Pepito");
+                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionMecanica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    }
+                }
+                listaReparaciones.add(c);
+                refrescarReparaciones();
+                entDescripcionReparacion.setText(vaciadorString);
+                entTallerReparacion.setText(vaciadorString);
+                texApel2Vendedor.setText(vaciadorString);
+                valorReparacion.setText(vaciadorString);
+                comboReparacion.getSelectionModel().select(null);
+                texCantidadVendedor.setText(vaciadorString);
+                entfechaReparacion.setValue(vaciadorAlta);
+            }
+            }catch(RuntimeException rte1){
+                System.out.println("Non se introdujo fecha");
+            }
+    }
+    @FXML
+    private void bajaReparacion(ActionEvent event){
+        Reparacion r=(Reparacion)tablaReparacion.getSelectionModel().getSelectedItem();
+        listaReparaciones.remove(r);
+        refrescarReparaciones();
+        entDescripcionReparacion.setText(vaciadorString);
+        entTallerReparacion.setText(vaciadorString);
+        texApel2Vendedor.setText(vaciadorString);
+        valorReparacion.setText(vaciadorString);
+        comboReparacion.getSelectionModel().select(null);
+        texCantidadVendedor.setText(vaciadorString);
+        entfechaReparacion.setValue(vaciadorAlta);
+    }
+            
+    @FXML
+    private void modificacionReparacion(ActionEvent event){
+        Date auxfecha;
+        int aux=tablaReparacion.getSelectionModel().getSelectedIndex();
+        
+        try{
+            int dia=entfechaReparacion.getValue().getDayOfMonth();
+            int mes=entfechaReparacion.getValue().getMonthValue(); //se resta 1 mes para cuadrar la fecha
+            int año=(entfechaReparacion.getValue().getYear()); //se resta 1900 años para cuadrar la fecha
+            auxfecha = new Date(año,mes,dia);
+            if(entDescripcionReparacion.getText().isEmpty() || entTallerReparacion.getText().isEmpty() || comboReparacion.getSelectionModel().isEmpty() || valorReparacion.getText().isEmpty()){
+                System.out.println("Faltan datos, asegurese de llenar todos los campos.");
+            }else{
+                Reparacion c;
+                if(comboReparacion.getSelectionModel().getSelectedItem().equals("Chapa")){
+                    //OLLO COA TRAMPA
+                    Taller t=new Taller("Pepito");
+                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
+                    c = new ReparacionChapa(Color.BLACK,auxfecha,entDescripcionReparacion.getText(),t);
+                }else{
+                    if(comboReparacion.getSelectionModel().getSelectedItem().equals("Eléctrica")){
+                        //OLLO COA TRAMPA
+                        Taller t=new Taller("Pepito");
+                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionElectrica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    }else{
+                        //OLLO COA TRAMPA
+                        Taller t=new Taller("Pepito");
+                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionMecanica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    }
+                }
+                listaReparaciones.set(aux,c);
+                refrescarReparaciones();
+                entDescripcionReparacion.setText(vaciadorString);
+                entTallerReparacion.setText(vaciadorString);
+                texApel2Vendedor.setText(vaciadorString);
+                valorReparacion.setText(vaciadorString);
+                comboReparacion.getSelectionModel().select(null);
+                texCantidadVendedor.setText(vaciadorString);
+                entfechaReparacion.setValue(vaciadorAlta);
+            }
+            }catch(RuntimeException rte1){
+                System.out.println("Non se introdujo fecha");
+            }
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -494,6 +628,15 @@ public class ControladorVentana implements Initializable{
         fechaVendedor.setCellValueFactory(new PropertyValueFactory("fechaAlta"));
         salarioVendedor.setCellValueFactory(new PropertyValueFactory("salario"));
         comisionVendedor.setCellValueFactory(new PropertyValueFactory("comision"));
+        
+        idReparacion.setCellValueFactory(new PropertyValueFactory("idReparacion"));
+        fechaReparacion.setCellValueFactory(new PropertyValueFactory("fecha"));
+        descripcionReparacion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        tallerReparacion.setCellValueFactory(new PropertyValueFactory("Taller"));
+        chapaReparacion.setCellValueFactory(new PropertyValueFactory("colorChapa"));
+        electricaReparacion.setCellValueFactory(new PropertyValueFactory("componente"));
+        mecanicaReparacion.setCellValueFactory(new PropertyValueFactory("parte"));
+        
         
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
         (ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) -> {
@@ -563,6 +706,46 @@ public class ControladorVentana implements Initializable{
                 texCondicionVendedor.getSelectionModel().select("Comisionista");
             }
         });
+        opcionReparacion.add("Chapa");
+        opcionReparacion.add("Eléctrica");
+        opcionReparacion.add("Mecánica");
+        comboReparacion.setItems(opcionReparacion);
+        
+        tablaReparacion.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Object> observable, Object oldValue, Object newValue) ->{
+            reparacionSeleccionada=null;
+            if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.ReparacionChapa")){
+                ReparacionChapa rc =(ReparacionChapa)newValue;
+                reparacionSeleccionada=rc;
+                LocalDate ld=LocalDate.of(rc.getFecha().getYear(), rc.getFecha().getMonth(), rc.getFecha().getDate());
+                entfechaReparacion.setValue(ld);
+                entDescripcionReparacion.setText(rc.getDescripcion());
+                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdTaller()));
+                comboReparacion.getSelectionModel().select("Chapa");
+                valorReparacion.setText(rc.getColorChapa().toString());
+            }else{
+                if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.ReparacionElectrica")){
+                ReparacionElectrica rc =(ReparacionElectrica)newValue;
+                reparacionSeleccionada=rc;
+                LocalDate ld=LocalDate.of(rc.getFecha().getYear(), rc.getFecha().getMonth(), rc.getFecha().getDate());
+                entfechaReparacion.setValue(ld);
+                entDescripcionReparacion.setText(rc.getDescripcion());
+                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdTaller()));
+                comboReparacion.getSelectionModel().select("Eléctrica");
+                valorReparacion.setText(rc.getComponente());
+                }else{
+                    if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.ReparacionMecanica")){
+                ReparacionMecanica rc =(ReparacionMecanica)newValue;
+                reparacionSeleccionada=rc;
+                LocalDate ld=LocalDate.of(rc.getFecha().getYear(), rc.getFecha().getMonth(), rc.getFecha().getDate());
+                entfechaReparacion.setValue(ld);
+                entDescripcionReparacion.setText(rc.getDescripcion());
+                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdTaller()));
+                comboReparacion.getSelectionModel().select("Mecanica");
+                valorReparacion.setText(rc.getParte());
+                }}
+            }
+            });
     }
     
     public void refrescarProveedores(){
@@ -583,6 +766,9 @@ public class ControladorVentana implements Initializable{
     
     public void refrescarVendedores(){
         tablaVendedor.setItems(listaVendedores);
+    }
+     public void refrescarReparaciones(){
+        tablaReparacion.setItems(listaReparaciones);
     }
     
     private void guardarModificar(Object objeto){

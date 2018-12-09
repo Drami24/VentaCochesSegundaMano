@@ -190,20 +190,27 @@
                            <children>
                               <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
                                  <content>
-                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                    <TableView fx:id="tablaReparacion" prefHeight="126.0" prefWidth="537.0">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="ID" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
+                                          <TableColumn fx:id="idReparacion" prefWidth="43.0" text="Id" />
+                                          <TableColumn fx:id="fechaReparacion" prefWidth="90.0" text="Fecha" />
+                                          <TableColumn fx:id="descripcionReparacion" prefWidth="85.0" text="Descripcion" />
+                                          <TableColumn fx:id="tallerReparacion" prefWidth="50.0" text="Taller" />
+                                          <TableColumn fx:id="chapaReparacion" prefWidth="63.0" text="Chapa(Color)" />
+                                          <TableColumn fx:id="electricaReparacion" prefWidth="101.0" text="Elect(Compoñente)" />
+                                          <TableColumn fx:id="mecanicaReparacion" prefWidth="104.0" text="Mecánica(Parte)" />
                                        </columns>
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="394.0" layoutY="206.0" />
-                              <TextField layoutX="25.0" layoutY="206.0" />
-                              <TextField layoutX="215.0" layoutY="207.0" />
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" onAction="#altaReparacion" text="Alta" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" onAction="#bajaReparacion" text="Baja" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" onAction="#modificacionReparacion" text="Modificacion" />
+                              <DatePicker fx:id="entfechaReparacion" layoutX="22.0" layoutY="165.0" promptText="Fecha" />
+                              <TextField fx:id="entDescripcionReparacion" layoutX="216.0" layoutY="165.0" promptText="Descripcion" />
+                              <TextField fx:id="entTallerReparacion" layoutX="383.0" layoutY="165.0" promptText="Codigo de Taller" />
+                              <TextField fx:id="valorReparacion" layoutX="196.0" layoutY="218.0" promptText="Valor" />
+                              <ComboBox fx:id="comboReparacion" layoutX="25.0" layoutY="218.0" prefWidth="150.0" promptText="Tipo de reparacion" />
                            </children>
                         </AnchorPane>
                      </content>

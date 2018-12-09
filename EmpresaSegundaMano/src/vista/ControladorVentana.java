@@ -303,7 +303,7 @@ public class ControladorVentana implements Initializable{
             Proveedor p=new Proveedor(auxname,auxfecha);
             listaProveedores.add(p);
             refrescarProveedores();
-            //guardarModificar(p);
+            guardarModificar(p);
         }
         else{
             System.out.println("No tiene nombre");
@@ -318,7 +318,7 @@ public class ControladorVentana implements Initializable{
         Proveedor p=(Proveedor) tablaProveedores.getSelectionModel().getSelectedItem();
         listaProveedores.remove(p);
         refrescarProveedores();
-        //eliminar(p);
+        eliminar(p);
     }
     
     @FXML
@@ -342,7 +342,7 @@ public class ControladorVentana implements Initializable{
             listaProveedores.set(aux, p);
             refrescarProveedores();
             fechaAltaProveedor.setValue(vaciadorAlta);
-            //guardarModificar(p);
+            guardarModificar(p);
         }
         else{
             System.out.println("No tiene nombre");
@@ -376,6 +376,7 @@ public class ControladorVentana implements Initializable{
                     texapel1Cliente.getText(),texapel2Cliente.getText(),
                     texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
             listaClientes.add(c);
+            guardarModificar(c);
             refrescarClientes();
             texdniCliente.setText(vaciadorString);
             texnombreCliente.setText(vaciadorString);
@@ -388,9 +389,9 @@ public class ControladorVentana implements Initializable{
     }
     @FXML
     private void darBajaCliente(ActionEvent event){
-        Cliente e=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
-        listaClientes.remove(e);
-        System.out.println("Eliminado cliente "+e.getDni());
+        Cliente c=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
+        listaClientes.remove(c);
+        System.out.println("Eliminado cliente "+c.getDni());
         texdniCliente.setText(vaciadorString);
         texnombreCliente.setText(vaciadorString);
         texapel1Cliente.setText(vaciadorString);
@@ -399,7 +400,9 @@ public class ControladorVentana implements Initializable{
         texemailCliente.setText(vaciadorString);
         entfechaCliente.setValue(vaciadorAlta);
         
-        //eliminar(c);
+        
+        
+        eliminar(c);
     }
     
     @FXML
@@ -433,6 +436,7 @@ public class ControladorVentana implements Initializable{
             texmovilCliente.setText(vaciadorString);
             texemailCliente.setText(vaciadorString);
             entfechaCliente.setValue(vaciadorAlta);
+            guardarModificar(e);
         }
     }
     
@@ -447,6 +451,7 @@ public class ControladorVentana implements Initializable{
             listaTalleres.add(t);
             refrescarTalleres();
             texNombreTaller.setText(vaciadorString);
+            guardarModificar(t);
         }
     }
     @FXML
@@ -455,6 +460,7 @@ public class ControladorVentana implements Initializable{
         listaTalleres.remove(t);
         refrescarTalleres();
         texNombreTaller.setText(vaciadorString);
+        eliminar(t);
     }
     @FXML
     private void modificacionTaller(ActionEvent event){
@@ -467,6 +473,7 @@ public class ControladorVentana implements Initializable{
             listaTalleres.set(aux, t);
             refrescarTalleres();
             texNombreTaller.setText(vaciadorString);
+            guardarModificar(t);
         }
 
     }
@@ -485,6 +492,7 @@ public class ControladorVentana implements Initializable{
             texNombreExpo.setText(vaciadorString);
             texLugarExpo.setText(vaciadorString);
             refresarExposiciones();
+            guardarModificar(e);
         }
     }
     @FXML
@@ -494,6 +502,7 @@ public class ControladorVentana implements Initializable{
         texNombreExpo.setText(vaciadorString);
         texLugarExpo.setText(vaciadorString);
         refresarExposiciones();
+        eliminar(e);
     }
     @FXML
     private void modificacionExpo (ActionEvent event){
@@ -508,6 +517,7 @@ public class ControladorVentana implements Initializable{
             texNombreExpo.setText(vaciadorString);
             texLugarExpo.setText(vaciadorString);
             refresarExposiciones();
+            guardarModificar(e);
         }
     }
     
@@ -540,6 +550,7 @@ public class ControladorVentana implements Initializable{
                 texCondicionVendedor.getSelectionModel().select(null);
                 texCantidadVendedor.setText(vaciadorString);
                 altaVendedor.setValue(vaciadorAlta);
+                guardarModificar(v);
             }
             }catch(RuntimeException rte1){
                 System.out.println("Non se introdujo fecha");
@@ -559,6 +570,7 @@ public class ControladorVentana implements Initializable{
         texCondicionVendedor.getSelectionModel().select(null);
         texCantidadVendedor.setText(vaciadorString);
         altaVendedor.setValue(vaciadorAlta);
+        eliminar(v);
     }
     
     @FXML
@@ -590,6 +602,7 @@ public class ControladorVentana implements Initializable{
                 texCondicionVendedor.getSelectionModel().select(null);
                 texCantidadVendedor.setText(vaciadorString);
                 altaVendedor.setValue(vaciadorAlta);
+                guardarModificar(v);
             }
             }catch(RuntimeException rte1){
                 System.out.println("Non se introdujo fecha");
@@ -615,6 +628,7 @@ public class ControladorVentana implements Initializable{
                     Taller t=new Taller("Pepito");
                     t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
                     c =new ReparacionChapa(Color.BLACK,auxfecha,entDescripcionReparacion.getText(),t);
+                    
                 }else{
                     if(comboReparacion.getSelectionModel().getSelectedItem().equals("Eléctrica")){
                         //OLLO COA TRAMPA
@@ -637,6 +651,7 @@ public class ControladorVentana implements Initializable{
                 comboReparacion.getSelectionModel().select(null);
                 texCantidadVendedor.setText(vaciadorString);
                 entfechaReparacion.setValue(vaciadorAlta);
+                guardarModificar(c);
             }
             }catch(RuntimeException rte1){
                 System.out.println("Non se introdujo fecha");
@@ -654,6 +669,7 @@ public class ControladorVentana implements Initializable{
         comboReparacion.getSelectionModel().select(null);
         texCantidadVendedor.setText(vaciadorString);
         entfechaReparacion.setValue(vaciadorAlta);
+        eliminar(r);
     } 
     @FXML
     private void modificacionReparacion(ActionEvent event){
@@ -696,6 +712,7 @@ public class ControladorVentana implements Initializable{
                 comboReparacion.getSelectionModel().select(null);
                 texCantidadVendedor.setText(vaciadorString);
                 entfechaReparacion.setValue(vaciadorAlta);
+                guardarModificar(c);
             }
             }catch(RuntimeException rte1){
                 System.out.println("Non se introdujo fecha");
@@ -749,6 +766,7 @@ public class ControladorVentana implements Initializable{
             entExposicionCoche.setText(vaciadorString);
             entVendedorCoche.setText(vaciadorString);
             entClienteCoche.setText(vaciadorString);
+            guardarModificar(c);
                     }
         
             }catch(RuntimeException rte1){
@@ -767,6 +785,7 @@ public class ControladorVentana implements Initializable{
         comboReparacion.getSelectionModel().select(null);
         texCantidadVendedor.setText(vaciadorString);
         entfechaReparacion.setValue(vaciadorAlta);
+        eliminar(c);
     }
     @FXML
     private void modificacionCoche(ActionEvent event){
@@ -815,6 +834,7 @@ public class ControladorVentana implements Initializable{
             entExposicionCoche.setText(vaciadorString);
             entVendedorCoche.setText(vaciadorString);
             entClienteCoche.setText(vaciadorString);
+            guardarModificar(c);
             }
             }catch(RuntimeException rte1){
                 System.out.println("Non se introdujo fecha");
@@ -1075,9 +1095,7 @@ public class ControladorVentana implements Initializable{
     }
     
     
-    private void cargarDatos(){
-        
-    }
+    
     @FXML
     private void buscarCliente(ActionEvent event){
         //Introducir aqui o codigo para que mediante este codigo:

@@ -766,8 +766,7 @@ public class ControladorVentana implements Initializable{
             entExposicionCoche.setText(vaciadorString);
             entVendedorCoche.setText(vaciadorString);
             entClienteCoche.setText(vaciadorString);
-                    }
-        
+            }
             }catch(RuntimeException rte1){
                 System.out.println("Non se introdujo fecha");
             }

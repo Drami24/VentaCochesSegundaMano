@@ -158,7 +158,7 @@
                                           <TableColumn fx:id="dniVendedor" prefWidth="60.0" text="Dni" />
                                           <TableColumn fx:id="nombreVendedor" prefWidth="54.0" text="Nombre" />
                                           <TableColumn fx:id="apellido1Vendedor" prefWidth="50.0" text="Apell1" />
-                                          <TableColumn fx:id="Apellido2Vendedor" prefWidth="59.0" text="Apell2" />
+                                          <TableColumn fx:id="apellido2Vendedor" prefWidth="59.0" text="Apell2" />
                                           <TableColumn fx:id="movilVendedor" prefWidth="67.0" text="Movil" />
                                           <TableColumn fx:id="emailVendedor" prefWidth="89.0" text="Email" />
                                           <TableColumn fx:id="salarioVendedor" prefWidth="59.0" text="Salario" />
@@ -168,18 +168,18 @@
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button layoutX="35.0" layoutY="287.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="123.0" layoutY="287.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="216.0" layoutY="287.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="391.0" layoutY="250.0" prefHeight="25.0" prefWidth="152.0" />
-                              <TextField layoutX="26.0" layoutY="159.0" promptText="Dni" />
-                              <TextField layoutX="216.0" layoutY="159.0" promptText="Nombre" />
-                              <TextField layoutX="394.0" layoutY="159.0" promptText="1º Apellido" />
-                              <TextField layoutX="26.0" layoutY="206.0" promptText="2º Apellido" />
-                              <TextField layoutX="216.0" layoutY="206.0" promptText="Movil" />
-                              <TextField layoutX="394.0" layoutY="206.0" promptText="eMail" />
-                              <ComboBox editable="true" layoutX="26.0" layoutY="250.0" prefWidth="150.0" promptText="Condicion" />
-                              <TextField layoutX="216.0" layoutY="250.0" />
+                              <Button layoutX="35.0" layoutY="287.0" mnemonicParsing="false" onAction="#altaVendedor" text="Alta" />
+                              <Button layoutX="123.0" layoutY="287.0" mnemonicParsing="false" onAction="#bajaVendedor" text="Baja" />
+                              <Button layoutX="216.0" layoutY="287.0" mnemonicParsing="false" onAction="#modificacionVendedor" text="Modificar" />
+                              <DatePicker fx:id="altaVendedor" layoutX="391.0" layoutY="250.0" prefHeight="25.0" prefWidth="152.0" />
+                              <TextField fx:id="texDniVendedor" layoutX="26.0" layoutY="159.0" promptText="Dni" />
+                              <TextField fx:id="texNombreVendedor" layoutX="216.0" layoutY="159.0" promptText="Nombre" />
+                              <TextField fx:id="texApel1Vendedor" layoutX="394.0" layoutY="159.0" promptText="1º Apellido" />
+                              <TextField fx:id="texApel2Vendedor" layoutX="26.0" layoutY="206.0" promptText="2º Apellido" />
+                              <TextField fx:id="texMovilVendedor" layoutX="216.0" layoutY="206.0" promptText="Movil" />
+                              <TextField fx:id="texEmailVendedor" layoutX="394.0" layoutY="206.0" promptText="eMail" />
+                              <ComboBox fx:id="texCondicionVendedor" editable="true" layoutX="26.0" layoutY="250.0" prefWidth="150.0" promptText="Condicion" />
+                              <TextField fx:id="texCantidadVendedor" layoutX="216.0" layoutY="250.0" promptText="Cantidad" />
                            </children>
                         </AnchorPane>
                      </content>

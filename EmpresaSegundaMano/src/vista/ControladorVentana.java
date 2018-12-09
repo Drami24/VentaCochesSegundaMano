@@ -2,8 +2,11 @@ package vista;
 import empresasegundamano.HibernateUtil;
 import empresasegundamano.NewHibernateUtil;
 import java.net.URL;
+import java.time.Instant;
 import pojos.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -106,6 +110,50 @@ public class ControladorVentana implements Initializable{
     private Exposicion exposicionSeleccionada;
     
     
+    //Atrubtos Vendedor
+    private Vendedor vendedorSeleccionado;
+    private ObservableList <Vendedor>listaVendedores = FXCollections.observableArrayList();
+    private ObservableList opcionesVendedores = FXCollections.observableArrayList();
+    @FXML
+    private TableView<Vendedor>tablaVendedor;
+    @FXML
+    private TableColumn<Vendedor,String>dniVendedor;
+    @FXML
+    private TableColumn<Vendedor,String>nombreVendedor;
+    @FXML
+    private TableColumn<Vendedor,String>apellido1Vendedor;
+    @FXML
+    private TableColumn<Vendedor,String>apellido2Vendedor;
+    @FXML
+    private TableColumn<Vendedor,String>movilVendedor;
+    @FXML
+    private TableColumn<Vendedor,String>emailVendedor;
+    @FXML
+    private TableColumn<Vendedor,String>salarioVendedor;
+    @FXML
+    private TableColumn<Vendedor,String>comisionVendedor;
+    @FXML
+    private TableColumn<Vendedor,LocalDate>fechaVendedor;
+    @FXML 
+    private TextField texDniVendedor;
+    @FXML 
+    private TextField texNombreVendedor;
+    @FXML 
+    private TextField texApel1Vendedor;
+    @FXML 
+    private TextField texApel2Vendedor;
+    @FXML 
+    private TextField texMovilVendedor;
+    @FXML 
+    private TextField texEmailVendedor;
+    @FXML
+    private ComboBox texCondicionVendedor;
+    @FXML 
+    private TextField texCantidadVendedor;
+    @FXML 
+    private DatePicker altaVendedor;
+    
+    
     //Metodos Proveedor
     @FXML
     private void darAltaProveedor(ActionEvent event ){
@@ -152,8 +200,8 @@ public class ControladorVentana implements Initializable{
             Proveedor p=(Proveedor)tablaProveedores.getSelectionModel().getSelectedItem();
             int aux =tablaProveedores.getSelectionModel().getSelectedIndex();
             int dia=fechaAltaProveedor.getValue().getDayOfMonth();
-            int mes=fechaAltaProveedor.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
-            int año=(fechaAltaProveedor.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            int mes=fechaAltaProveedor.getValue().getMonthValue(); //se resta 1 mes para cuadrar la fecha
+            int año=(fechaAltaProveedor.getValue().getYear()); //se resta 1900 años para cuadrar la fecha
             auxfecha= new Date(año,mes,dia);
             fechaAltaProveedor.setValue(vaciadorAlta);
             if(!texNombreProveedor.getText().isEmpty()){
@@ -231,8 +279,8 @@ public class ControladorVentana implements Initializable{
         }else{
             try{
                 int dia=entfechaCliente.getValue().getDayOfMonth();
-                int mes=entfechaCliente.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
-                int año=(entfechaCliente.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+                int mes=entfechaCliente.getValue().getMonthValue(); //se resta 1 mes para cuadrar la fecha
+                int año=(entfechaCliente.getValue().getYear()); //se resta 1900 años para cuadrar la fecha
             auxfecha= new Date(año,mes,dia);
             }catch(RuntimeException rte1){
             System.out.println("Non se introdujo fecha");}
@@ -327,8 +375,96 @@ public class ControladorVentana implements Initializable{
         }
     }
     
+    
+    //Metodos Vendedor
+    @FXML
+    private void altaVendedor(ActionEvent event){
+        Date auxfecha;
+        try{
+            int dia=altaVendedor.getValue().getDayOfMonth();
+            int mes=altaVendedor.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            int año=(altaVendedor.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha= new Date(año,mes,dia);
+            if(texDniVendedor.getText().isEmpty() || texNombreVendedor.getText().isEmpty() || texApel1Vendedor.getText().isEmpty() || texApel2Vendedor.getText().isEmpty() || texMovilVendedor.getText().isEmpty() || texEmailVendedor.getText().isEmpty() || texCondicionVendedor.getSelectionModel().isEmpty() || texCantidadVendedor.getText().isEmpty()){
+                System.out.println("Faltan datos, asegurese de llenar todos los campos.");
+            }else{
+                Vendedor v;
+                if(texCondicionVendedor.getSelectionModel().getSelectedItem().equals("Asalariado")){
+                    v =new VendedorAsalariado(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                }else{
+                    v =new VendedorComision(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                }
+                listaVendedores.add(v);
+                refrescarVendedores();
+                texDniVendedor.setText(vaciadorString);
+                texNombreVendedor.setText(vaciadorString);
+                texApel1Vendedor.setText(vaciadorString);
+                texApel2Vendedor.setText(vaciadorString);
+                texMovilVendedor.setText(vaciadorString);
+                texCondicionVendedor.getSelectionModel().select(null);
+                texCantidadVendedor.setText(vaciadorString);
+                altaVendedor.setValue(vaciadorAlta);
+            }
+            }catch(RuntimeException rte1){
+                System.out.println("Non se introdujo fecha");
+            }
+        
+    }
+    @FXML
+    private void bajaVendedor(ActionEvent event){
+        Vendedor v=(Vendedor)tablaVendedor.getSelectionModel().getSelectedItem();
+        listaVendedores.remove(v);
+        refrescarVendedores();
+        texDniVendedor.setText(vaciadorString);
+        texNombreVendedor.setText(vaciadorString);
+        texApel1Vendedor.setText(vaciadorString);
+        texApel2Vendedor.setText(vaciadorString);
+        texMovilVendedor.setText(vaciadorString);
+        texCondicionVendedor.getSelectionModel().select(null);
+        texCantidadVendedor.setText(vaciadorString);
+        altaVendedor.setValue(vaciadorAlta);
+    }
+    @FXML
+    private void modificacionVendedor (ActionEvent event){
+        Vendedor v=(Vendedor)tablaVendedor.getSelectionModel().getSelectedItem();
+        int aux=tablaVendedor.getSelectionModel().getSelectedIndex();
+        Date auxfecha;
+        try{
+            int dia=altaVendedor.getValue().getDayOfMonth();
+            int mes=altaVendedor.getValue().getMonthValue(); //se resta 1 mes para cuadrar la fecha
+            int año=(altaVendedor.getValue().getYear()); //se resta 1900 años para cuadrar la fecha
+            auxfecha= new Date(año,mes,dia);
+            if(texDniVendedor.getText().isEmpty() || texNombreVendedor.getText().isEmpty() || texApel1Vendedor.getText().isEmpty() || texApel2Vendedor.getText().isEmpty() || texMovilVendedor.getText().isEmpty() || texEmailVendedor.getText().isEmpty() || texCondicionVendedor.getSelectionModel().isEmpty() || texCantidadVendedor.getText().isEmpty()){
+                System.out.println("Faltan datos, asegurese de llenar todos los campos.");
+            }else{
+                
+                if(texCondicionVendedor.getSelectionModel().getSelectedItem().equals("Asalariado")){
+                    v =new VendedorAsalariado(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                }else{
+                    v =new VendedorComision(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                }
+                listaVendedores.set(aux, v);
+                refrescarVendedores();
+                texDniVendedor.setText(vaciadorString);
+                texNombreVendedor.setText(vaciadorString);
+                texApel1Vendedor.setText(vaciadorString);
+                texApel2Vendedor.setText(vaciadorString);
+                texMovilVendedor.setText(vaciadorString);
+                texCondicionVendedor.getSelectionModel().select(null);
+                texCantidadVendedor.setText(vaciadorString);
+                altaVendedor.setValue(vaciadorAlta);
+            }
+            }catch(RuntimeException rte1){
+                System.out.println("Non se introdujo fecha");
+            }
+    }
+    
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
+        sesion=NewHibernateUtil.getSession();
+        
         System.out.println("Buenas, me he iniciado.");
         idProveedor.setCellValueFactory(new PropertyValueFactory("idProveedor"));
         nombreProveedor.setCellValueFactory(new PropertyValueFactory("nombre"));
@@ -349,7 +485,16 @@ public class ControladorVentana implements Initializable{
         lugarExpo.setCellValueFactory(new PropertyValueFactory("lugar"));
         idExpo.setCellValueFactory(new PropertyValueFactory("idExposicion"));
         
-        sesion=NewHibernateUtil.getSession();
+        dniVendedor.setCellValueFactory(new PropertyValueFactory("dni"));
+        nombreVendedor.setCellValueFactory(new PropertyValueFactory("nombre"));
+        apellido1Vendedor.setCellValueFactory(new PropertyValueFactory("apellido1"));
+        apellido2Vendedor.setCellValueFactory(new PropertyValueFactory("apellido2"));
+        movilVendedor.setCellValueFactory(new PropertyValueFactory("movil"));
+        emailVendedor.setCellValueFactory(new PropertyValueFactory("email"));
+        fechaVendedor.setCellValueFactory(new PropertyValueFactory("fechaAlta"));
+        salarioVendedor.setCellValueFactory(new PropertyValueFactory("salario"));
+        comisionVendedor.setCellValueFactory(new PropertyValueFactory("comision"));
+        
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
         (ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) -> {
             clienteSeleccionado= null;
@@ -381,7 +526,42 @@ public class ControladorVentana implements Initializable{
             exposicionSeleccionada=newValue;
             texNombreExpo.setText(exposicionSeleccionada.getNombre());
             texLugarExpo.setText(exposicionSeleccionada.getLugar());
-            
+        });
+        
+        opcionesVendedores.add("Asalariado");
+        opcionesVendedores.add("Comisionista");
+        texCondicionVendedor.setItems(opcionesVendedores);
+        
+        tablaVendedor.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Object> observable, Object oldValue, Object newValue) ->{
+            vendedorSeleccionado=null;
+            if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.VendedorAsalariado")){
+                VendedorAsalariado v =(VendedorAsalariado)newValue;
+                vendedorSeleccionado=v;
+                texDniVendedor.setText(v.getDni());
+                texNombreVendedor.setText(v.getNombre());
+                texApel1Vendedor.setText(v.getApellido1());
+                texApel2Vendedor.setText(v.getApellido2());
+                texMovilVendedor.setText(v.getMovil());
+                texEmailVendedor.setText(v.getEmail());
+                LocalDate ld=LocalDate.of(v.getFechaAlta().getYear(), v.getFechaAlta().getMonth(), v.getFechaAlta().getDate());
+                altaVendedor.setValue(ld);
+                texCantidadVendedor.setText(String.valueOf(v.getSalario()));
+                texCondicionVendedor.getSelectionModel().select("Asalariado");
+            }else{
+                VendedorComision v =(VendedorComision)newValue;
+                vendedorSeleccionado=v;
+                texDniVendedor.setText(v.getDni());
+                texNombreVendedor.setText(v.getNombre());
+                texApel1Vendedor.setText(v.getApellido1());
+                texApel2Vendedor.setText(v.getApellido2());
+                texMovilVendedor.setText(v.getMovil());
+                texEmailVendedor.setText(v.getEmail());
+                LocalDate ld=LocalDate.of(v.getFechaAlta().getYear(), v.getFechaAlta().getMonth(), v.getFechaAlta().getDate());
+                altaVendedor.setValue(ld);
+                texCantidadVendedor.setText(String.valueOf(v.getComision()));
+                texCondicionVendedor.getSelectionModel().select("Comisionista");
+            }
         });
     }
     
@@ -396,8 +576,13 @@ public class ControladorVentana implements Initializable{
     public void refrescarTalleres(){
         tablaTaller.setItems(listaTalleres);
     }
+    
     public void refresarExposiciones(){
         tablaExpo.setItems(listaExpos);
+    }
+    
+    public void refrescarVendedores(){
+        tablaVendedor.setItems(listaVendedores);
     }
     
     private void guardarModificar(Object objeto){

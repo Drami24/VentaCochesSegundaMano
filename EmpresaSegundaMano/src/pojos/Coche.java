@@ -30,7 +30,7 @@ public class Coche {
     private Cliente cliente;
     private Set<Reparacion> reparaciones;
 
-    public Coche(String marca, String modelo, String matricula, double precioCompra, double precioVenta, boolean reparado, Date fechaAlta, Date fechaVenta, Proveedor proveedor, Exposicion exposicion, Vendedor vendedor) {
+    public Coche(String marca, String modelo, String matricula, double precioCompra, double precioVenta, boolean reparado, Date fechaAlta, Date fechaVenta, Proveedor proveedor, Exposicion exposicion, Vendedor vendedor, Cliente cliente) {
         this.marca = marca;
         this.modelo = modelo;
         this.matricula = matricula;
@@ -42,6 +42,7 @@ public class Coche {
         this.proveedor = proveedor;
         this.exposicion = exposicion;
         this.vendedor = vendedor;
+        this.cliente = cliente;
         reparaciones = new HashSet(0);
     }
 

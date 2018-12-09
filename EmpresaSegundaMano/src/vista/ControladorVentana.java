@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.event.EventType;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -148,9 +149,8 @@ public class ControladorVentana implements Initializable{
     @FXML 
     private DatePicker altaVendedor;
     
+    
     //Atributos Reparacion
-    
-    
     private Reparacion reparacionSeleccionada;
     private ObservableList <Reparacion>listaReparaciones = FXCollections.observableArrayList();
     private ObservableList opcionReparacion = FXCollections.observableArrayList();
@@ -180,6 +180,68 @@ public class ControladorVentana implements Initializable{
     private TextField entTallerReparacion;
     @FXML
     private TextField valorReparacion;
+    
+    
+    //Atributos Coche
+    private Coche cocheSeleccionado;
+    private ObservableList <Coche>listaCoches = FXCollections.observableArrayList();
+    private ObservableList opcionCoche = FXCollections.observableArrayList();
+    @FXML
+    private TableView<Coche> tablaCoches;
+    @FXML
+    private TableColumn<Coche,Integer> idCoche;
+    @FXML
+    private TableColumn<Coche,String> marcaCoche;
+    @FXML
+    private TableColumn<Coche,String> modeloCoche;
+    @FXML
+    private TableColumn<Coche,String> matriculaCoche;
+    @FXML
+    private TableColumn<Coche,Enum> tipoCoche;
+    @FXML
+    private TableColumn<Coche,String> precioVentaCoche;
+    @FXML
+    private TableColumn<Coche,String> precioCompraCoche;
+    @FXML
+    private TableColumn<Coche,Date> fechaAltaCoche;
+    @FXML
+    private TableColumn<Coche,Date> fechaBajaCoche;
+    @FXML
+    private TableColumn<Coche,Boolean> reparacionCoche;
+    @FXML
+    private TableColumn<Coche,Proveedor> proveedorCoche;
+    @FXML
+    private TableColumn<Coche,Exposicion> exposicionCoche;
+    @FXML
+    private TableColumn<Coche,Vendedor> vendedorCoche;
+    @FXML
+    private TableColumn<Coche,Cliente> clienteCoche;
+    @FXML
+    private TextField entMarcaCoche;
+    @FXML
+    private TextField entModeloCoche;
+    @FXML
+    private TextField entMatriculaCoche;
+    @FXML
+    private TextField entPrecioCompraCoche;
+    @FXML
+    private TextField entPrecioVentaCoche;
+    @FXML
+    private TextField entProveedorCoche;
+    @FXML
+    private TextField entExposicionCoche;
+    @FXML
+    private TextField entVendedorCoche;
+    @FXML
+    private TextField entClienteCoche;
+    @FXML
+    private ComboBox comboCoche;
+    @FXML
+    private CheckBox checkCoche;
+    @FXML
+    private DatePicker entFechaAlta;
+    @FXML
+    private DatePicker entFechaBaja;
     
     
     //Metodos Proveedor
@@ -545,8 +607,7 @@ public class ControladorVentana implements Initializable{
         comboReparacion.getSelectionModel().select(null);
         texCantidadVendedor.setText(vaciadorString);
         entfechaReparacion.setValue(vaciadorAlta);
-    }
-            
+    } 
     @FXML
     private void modificacionReparacion(ActionEvent event){
         Date auxfecha;
@@ -594,6 +655,123 @@ public class ControladorVentana implements Initializable{
             }
     }
     
+    
+    //Metodos Coche
+     @FXML
+    private void altaCoche(ActionEvent event){
+        Date auxfecha1;
+        Date auxfecha2;
+        Proveedor proveedor = new Proveedor();
+        Exposicion expo = new Exposicion();
+        Vendedor vendedor = new VendedorAsalariado();//OLLO COA TRAMPA
+        Cliente cliente= new Cliente();
+        try{
+            int dia=entFechaAlta.getValue().getDayOfMonth();
+            int mes=entFechaAlta.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            int año=(entFechaAlta.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha1 = new Date(año,mes,dia);
+            dia=entFechaBaja.getValue().getDayOfMonth();
+            mes=entFechaBaja.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            año=(entFechaBaja.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha2 = new Date(año,mes,dia);
+        if(entMarcaCoche.getText().isEmpty() || entModeloCoche.getText().isEmpty() || entMatriculaCoche.getText().isEmpty() || 
+                comboCoche.getSelectionModel().getSelectedItem().toString().isEmpty() || entPrecioCompraCoche.getText().isEmpty() || 
+                entPrecioVentaCoche.getText().isEmpty() || entProveedorCoche.getText().isEmpty() || entExposicionCoche.getText().isEmpty() || 
+                entVendedorCoche.getText().isEmpty() || entClienteCoche.getText().isEmpty()){
+            System.out.println("Faltan datos, rellene todos los campos");
+        }else{
+            proveedor.setIdProveedor(Integer.parseInt(entProveedorCoche.getText()));
+            expo.setIdExposicion(Integer.parseInt(entExposicionCoche.getText()));
+            vendedor.setDni(entVendedorCoche.getText());
+            cliente.setDni(entClienteCoche.getText());
+            double compra=Double.parseDouble(entPrecioCompraCoche.getText());
+            double venta=Double.parseDouble(entPrecioVentaCoche.getText());
+            Coche c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(),compra, venta, checkCoche.isSelected(), auxfecha1, auxfecha2, proveedor, expo, vendedor, cliente);
+            listaCoches.add(c);
+            refrescarCoches();
+            entMarcaCoche.setText(vaciadorString);
+            entModeloCoche.setText(vaciadorString);
+            entMatriculaCoche.setText(vaciadorString);
+            entPrecioCompraCoche.setText(vaciadorString);
+            entPrecioVentaCoche.setText(vaciadorString);
+            checkCoche.setSelected(false);
+            entFechaAlta.setValue(vaciadorAlta);
+            entFechaBaja.setValue(vaciadorAlta);
+            entProveedorCoche.setText(vaciadorString);
+            entExposicionCoche.setText(vaciadorString);
+            entVendedorCoche.setText(vaciadorString);
+            entClienteCoche.setText(vaciadorString);
+                    }
+        
+            }catch(RuntimeException rte1){
+                System.out.println("Non se introdujo fecha");
+            }
+    }
+    @FXML
+    private void bajaCoche(ActionEvent event){
+        Coche c=(Coche)tablaCoches.getSelectionModel().getSelectedItem();
+        listaCoches.remove(c);
+        refrescarCoches();
+        entDescripcionReparacion.setText(vaciadorString);
+        entTallerReparacion.setText(vaciadorString);
+        texApel2Vendedor.setText(vaciadorString);
+        valorReparacion.setText(vaciadorString);
+        comboReparacion.getSelectionModel().select(null);
+        texCantidadVendedor.setText(vaciadorString);
+        entfechaReparacion.setValue(vaciadorAlta);
+    }
+    @FXML
+    private void modificacionCoche(ActionEvent event){
+        Coche c;
+        int aux=tablaCoches.getSelectionModel().getSelectedIndex();
+        Date auxfecha1;
+        Date auxfecha2;
+        Proveedor proveedor = new Proveedor();
+        Exposicion expo = new Exposicion();
+        Vendedor vendedor = new VendedorAsalariado();//OLLO COA TRAMPA
+        Cliente cliente= new Cliente();
+        try{
+            int dia=entFechaAlta.getValue().getDayOfMonth();
+            int mes=entFechaAlta.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            int año=(entFechaAlta.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha1 = new Date(año,mes,dia);
+            dia=entFechaBaja.getValue().getDayOfMonth();
+            mes=entFechaBaja.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
+            año=(entFechaBaja.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
+            auxfecha2 = new Date(año,mes,dia);
+        if(entMarcaCoche.getText().isEmpty() || entModeloCoche.getText().isEmpty() || entMatriculaCoche.getText().isEmpty() || 
+                comboCoche.getSelectionModel().getSelectedItem().toString().isEmpty() || entPrecioCompraCoche.getText().isEmpty() || 
+                entPrecioVentaCoche.getText().isEmpty() || entProveedorCoche.getText().isEmpty() || entExposicionCoche.getText().isEmpty() || 
+                entVendedorCoche.getText().isEmpty() || entClienteCoche.getText().isEmpty()){
+            System.out.println("Faltan datos, rellene todos los campos");
+        }else{
+            proveedor.setIdProveedor(Integer.parseInt(entProveedorCoche.getText()));
+            expo.setIdExposicion(Integer.parseInt(entExposicionCoche.getText()));
+            vendedor.setDni(entVendedorCoche.getText());
+            cliente.setDni(entClienteCoche.getText());
+            double compra=Double.parseDouble(entPrecioCompraCoche.getText());
+            double venta=Double.parseDouble(entPrecioVentaCoche.getText());
+            c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(),compra, venta, checkCoche.isSelected(), auxfecha1, auxfecha2, proveedor, expo, vendedor, cliente);
+            listaCoches.set(aux,c);
+            refrescarCoches();
+            entMarcaCoche.setText(vaciadorString);
+            entModeloCoche.setText(vaciadorString);
+            entMatriculaCoche.setText(vaciadorString);
+            entPrecioCompraCoche.setText(vaciadorString);
+            entPrecioVentaCoche.setText(vaciadorString);
+            checkCoche.setSelected(false);
+            entFechaAlta.setValue(vaciadorAlta);
+            entFechaBaja.setValue(vaciadorAlta);
+            entProveedorCoche.setText(vaciadorString);
+            entExposicionCoche.setText(vaciadorString);
+            entVendedorCoche.setText(vaciadorString);
+            entClienteCoche.setText(vaciadorString);
+                    }
+        
+            }catch(RuntimeException rte1){
+                System.out.println("Non se introdujo fecha");
+            }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -636,6 +814,21 @@ public class ControladorVentana implements Initializable{
         chapaReparacion.setCellValueFactory(new PropertyValueFactory("colorChapa"));
         electricaReparacion.setCellValueFactory(new PropertyValueFactory("componente"));
         mecanicaReparacion.setCellValueFactory(new PropertyValueFactory("parte"));
+        
+        idCoche.setCellValueFactory(new PropertyValueFactory("idCoche"));
+        marcaCoche.setCellValueFactory(new PropertyValueFactory("marca"));
+        modeloCoche.setCellValueFactory(new PropertyValueFactory("modelo"));
+        matriculaCoche.setCellValueFactory(new PropertyValueFactory("matricula"));
+        tipoCoche.setCellValueFactory(new PropertyValueFactory("tipo"));
+        precioCompraCoche.setCellValueFactory(new PropertyValueFactory("precioCompra"));
+        precioVentaCoche.setCellValueFactory(new PropertyValueFactory("precioVenta"));
+        fechaAltaCoche.setCellValueFactory(new PropertyValueFactory("fechaAlta"));
+        fechaBajaCoche.setCellValueFactory(new PropertyValueFactory("fechaVenta"));
+        reparacionCoche.setCellValueFactory(new PropertyValueFactory("reparado"));
+        proveedorCoche.setCellValueFactory(new PropertyValueFactory("proveedor"));
+        exposicionCoche.setCellValueFactory(new PropertyValueFactory("exposicion"));
+        vendedorCoche.setCellValueFactory(new PropertyValueFactory("vendedor"));
+        clienteCoche.setCellValueFactory(new PropertyValueFactory("cliente"));
         
         
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
@@ -746,6 +939,33 @@ public class ControladorVentana implements Initializable{
                 }}
             }
             });
+        opcionCoche.add("TURISMO");
+        opcionCoche.add("INDUSTRIAL");
+        opcionCoche.add("TODOTERRENO");
+        comboCoche.setItems(opcionCoche);
+        tablaCoches.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Coche> observable, Coche oldValue, Coche newValue) -> {
+            cocheSeleccionado= null;
+            cocheSeleccionado= newValue;
+            entMarcaCoche.setText(cocheSeleccionado.getMarca());
+            entModeloCoche.setText(cocheSeleccionado.getModelo());
+            entMatriculaCoche.setText(cocheSeleccionado.getMatricula());
+            entPrecioCompraCoche.setText(String.valueOf(cocheSeleccionado.getPrecioCompra()));
+            entPrecioVentaCoche.setText(String.valueOf(cocheSeleccionado.getPrecioVenta()));
+            LocalDate ld=LocalDate.of(cocheSeleccionado.getFechaAlta().getYear(),cocheSeleccionado.getFechaAlta().getMonth(), cocheSeleccionado.getFechaAlta().getDate());
+            entFechaAlta.setValue(ld);
+            LocalDate la=LocalDate.of(cocheSeleccionado.getFechaVenta().getYear(),cocheSeleccionado.getFechaVenta().getMonth(), cocheSeleccionado.getFechaVenta().getDate());
+            entFechaBaja.setValue(la);
+            if(cocheSeleccionado.isReparado()){
+                checkCoche.setSelected(true);
+            }else{
+                checkCoche.setSelected(false);
+            }
+            entProveedorCoche.setText(String.valueOf(cocheSeleccionado.getProveedor().getIdProveedor()));
+            entExposicionCoche.setText(String.valueOf(cocheSeleccionado.getExposicion().getIdExposicion()));
+            entVendedorCoche.setText(cocheSeleccionado.getVendedor().getDni());
+            entClienteCoche.setText(cocheSeleccionado.getCliente().getDni());
+        });   
     }
     
     public void refrescarProveedores(){
@@ -767,8 +987,13 @@ public class ControladorVentana implements Initializable{
     public void refrescarVendedores(){
         tablaVendedor.setItems(listaVendedores);
     }
+    
      public void refrescarReparaciones(){
         tablaReparacion.setItems(listaReparaciones);
+    }
+     
+      public void refrescarCoches(){
+        tablaCoches.setItems(listaCoches);
     }
     
     private void guardarModificar(Object objeto){

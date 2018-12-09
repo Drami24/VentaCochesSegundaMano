@@ -26,6 +26,7 @@ public class NewFXMain extends Application {
         Scene escena =new Scene(root);
         stage.setScene(escena);
         stage.show();
+        
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {

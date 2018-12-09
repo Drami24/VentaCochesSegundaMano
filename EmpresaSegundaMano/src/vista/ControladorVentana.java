@@ -147,6 +147,7 @@ public class ControladorVentana implements Initializable{
     private ComboBox texCondicionVendedor;
     @FXML 
     private TextField texCantidadVendedor;
+    
     @FXML 
     private DatePicker altaVendedor;
     
@@ -248,6 +249,7 @@ public class ControladorVentana implements Initializable{
     //Atributos Consultas
     @FXML
     private TableView<Coche> tablaCoches1;
+    
     @FXML
     private TableColumn<Coche,Integer> idCoche1;
     @FXML
@@ -337,8 +339,7 @@ public class ControladorVentana implements Initializable{
             auxname=texNombreProveedor.getText();
             texNombreProveedor.setText(vaciadorString);
             p=new Proveedor(auxname,auxfecha);
-            listaProveedores.remove(aux);
-            listaProveedores.add(aux, p);
+            listaProveedores.set(aux, p);
             refrescarProveedores();
             fechaAltaProveedor.setValue(vaciadorAlta);
             //guardarModificar(p);
@@ -357,7 +358,9 @@ public class ControladorVentana implements Initializable{
     @FXML
     public void darAltaCliente(ActionEvent event){
          Date auxfecha= null;
-        if(texdniCliente.getText().isEmpty() || texnombreCliente.getText().isEmpty() || texapel1Cliente.getText().isEmpty() || texapel2Cliente.getText().isEmpty() || texmovilCliente.getText().isEmpty() || texmovilCliente.getText().isEmpty()){
+        if(texdniCliente.getText().isEmpty() || texnombreCliente.getText().isEmpty() ||
+                texapel1Cliente.getText().isEmpty() || texapel2Cliente.getText().isEmpty() ||
+                texmovilCliente.getText().isEmpty() || texmovilCliente.getText().isEmpty()){
             System.out.println("Faltan datos, insercion cancelada");
         }else{
             try{
@@ -369,7 +372,9 @@ public class ControladorVentana implements Initializable{
                 System.out.println("Non se introdujo fecha");
             }
             Cliente c;
-            c = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),texapel1Cliente.getText(),texapel2Cliente.getText(),texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
+            c = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),
+                    texapel1Cliente.getText(),texapel2Cliente.getText(),
+                    texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
             listaClientes.add(c);
             refrescarClientes();
             texdniCliente.setText(vaciadorString);
@@ -402,20 +407,23 @@ public class ControladorVentana implements Initializable{
         Date auxfecha= null;
         Cliente e=(Cliente)tablaClientes.getSelectionModel().getSelectedItem();
         int aux=tablaClientes.getSelectionModel().getSelectedIndex();
-        if(texdniCliente.getText().isEmpty() || texnombreCliente.getText().isEmpty() || texapel1Cliente.getText().isEmpty() || texapel2Cliente.getText().isEmpty() || texmovilCliente.getText().isEmpty() || texmovilCliente.getText().isEmpty()){
+        if(texdniCliente.getText().isEmpty() || texnombreCliente.getText().isEmpty() || 
+                texapel1Cliente.getText().isEmpty() || texapel2Cliente.getText().isEmpty() || 
+                texmovilCliente.getText().isEmpty() || texmovilCliente.getText().isEmpty()){
             System.out.println("Faltan datos, insercion cancelada");
         }else{
             try{
                 int dia=entfechaCliente.getValue().getDayOfMonth();
-                int mes=entfechaCliente.getValue().getMonthValue(); //se resta 1 mes para cuadrar la fecha
-                int año=(entfechaCliente.getValue().getYear()); //se resta 1900 años para cuadrar la fecha
+                int mes=entfechaCliente.getValue().getMonthValue();
+                int año=(entfechaCliente.getValue().getYear());
             auxfecha= new Date(año,mes,dia);
             }catch(RuntimeException rte1){
             System.out.println("Non se introdujo fecha");}
         
-            e = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),texapel1Cliente.getText(),texapel2Cliente.getText(),texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
-            listaClientes.remove(aux);
-            listaClientes.add(aux, e);
+            e = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),
+            texapel1Cliente.getText(),texapel2Cliente.getText(),
+            texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
+            listaClientes.set(aux, e);
             refrescarClientes();
             System.out.println("Editado cliente "+e.getDni());
             texdniCliente.setText(vaciadorString);
@@ -552,6 +560,7 @@ public class ControladorVentana implements Initializable{
         texCantidadVendedor.setText(vaciadorString);
         altaVendedor.setValue(vaciadorAlta);
     }
+    
     @FXML
     private void modificacionVendedor (ActionEvent event){
         Vendedor v=(Vendedor)tablaVendedor.getSelectionModel().getSelectedItem();

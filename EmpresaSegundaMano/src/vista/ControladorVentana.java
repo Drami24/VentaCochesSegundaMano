@@ -18,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
@@ -242,6 +243,43 @@ public class ControladorVentana implements Initializable{
     private DatePicker entFechaAlta;
     @FXML
     private DatePicker entFechaBaja;
+    
+    
+    //Atributos Consultas
+    @FXML
+    private TableView<Coche> tablaCoches1;
+    @FXML
+    private TableColumn<Coche,Integer> idCoche1;
+    @FXML
+    private TableColumn<Coche,String> marcaCoche1;
+    @FXML
+    private TableColumn<Coche,String> modeloCoche1;
+    @FXML
+    private TableColumn<Coche,String> matriculaCoche1;
+    @FXML
+    private TableColumn<Coche,Enum> tipoCoche1;
+    @FXML
+    private TableColumn<Coche,String> precioVentaCoche1;
+    @FXML
+    private TableColumn<Coche,String> precioCompraCoche1;
+    @FXML
+    private TableColumn<Coche,Date> fechaAltaCoche1;
+    @FXML
+    private TableColumn<Coche,Date> fechaBajaCoche1;
+    @FXML
+    private TableColumn<Coche,Boolean> reparacionCoche1;
+    @FXML
+    private TableColumn<Coche,Proveedor> proveedorCoche1;
+    @FXML
+    private TableColumn<Coche,Exposicion> exposicionCoche1;
+    @FXML
+    private TableColumn<Coche,Vendedor> vendedorCoche1;
+    @FXML
+    private TableColumn<Coche,Cliente> clienteCoche1;
+    @FXML 
+    private TextField codCoche;
+    @FXML 
+    private TextArea textArea;
     
     
     //Metodos Proveedor
@@ -661,10 +699,10 @@ public class ControladorVentana implements Initializable{
     private void altaCoche(ActionEvent event){
         Date auxfecha1;
         Date auxfecha2;
-        Proveedor proveedor = new Proveedor();
-        Exposicion expo = new Exposicion();
+        Proveedor proveedor = new Proveedor();//OLLO COA TRAMPA
+        Exposicion expo = new Exposicion();//OLLO COA TRAMPA
         Vendedor vendedor = new VendedorAsalariado();//OLLO COA TRAMPA
-        Cliente cliente= new Cliente();
+        Cliente cliente= new Cliente();//OLLO COA TRAMPA
         try{
             int dia=entFechaAlta.getValue().getDayOfMonth();
             int mes=entFechaAlta.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
@@ -686,6 +724,7 @@ public class ControladorVentana implements Initializable{
             cliente.setDni(entClienteCoche.getText());
             double compra=Double.parseDouble(entPrecioCompraCoche.getText());
             double venta=Double.parseDouble(entPrecioVentaCoche.getText());
+            //OLLO COA TRAMPA
             Coche c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(),compra, venta, checkCoche.isSelected(), auxfecha1, auxfecha2, proveedor, expo, vendedor, cliente);
             listaCoches.add(c);
             refrescarCoches();
@@ -726,10 +765,10 @@ public class ControladorVentana implements Initializable{
         int aux=tablaCoches.getSelectionModel().getSelectedIndex();
         Date auxfecha1;
         Date auxfecha2;
-        Proveedor proveedor = new Proveedor();
-        Exposicion expo = new Exposicion();
+        Proveedor proveedor = new Proveedor();//OLLO COA TRAMPA
+        Exposicion expo = new Exposicion();//OLLO COA TRAMPA
         Vendedor vendedor = new VendedorAsalariado();//OLLO COA TRAMPA
-        Cliente cliente= new Cliente();
+        Cliente cliente= new Cliente();//OLLO COA TRAMPA
         try{
             int dia=entFechaAlta.getValue().getDayOfMonth();
             int mes=entFechaAlta.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
@@ -751,6 +790,7 @@ public class ControladorVentana implements Initializable{
             cliente.setDni(entClienteCoche.getText());
             double compra=Double.parseDouble(entPrecioCompraCoche.getText());
             double venta=Double.parseDouble(entPrecioVentaCoche.getText());
+            //OLLO COA TRAMPA
             c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(),compra, venta, checkCoche.isSelected(), auxfecha1, auxfecha2, proveedor, expo, vendedor, cliente);
             listaCoches.set(aux,c);
             refrescarCoches();
@@ -828,6 +868,21 @@ public class ControladorVentana implements Initializable{
         exposicionCoche.setCellValueFactory(new PropertyValueFactory("exposicion"));
         vendedorCoche.setCellValueFactory(new PropertyValueFactory("vendedor"));
         clienteCoche.setCellValueFactory(new PropertyValueFactory("cliente"));
+        
+        idCoche1.setCellValueFactory(new PropertyValueFactory("idCoche"));
+        marcaCoche1.setCellValueFactory(new PropertyValueFactory("marca"));
+        modeloCoche1.setCellValueFactory(new PropertyValueFactory("modelo"));
+        matriculaCoche1.setCellValueFactory(new PropertyValueFactory("matricula"));
+        tipoCoche1.setCellValueFactory(new PropertyValueFactory("tipo"));
+        precioCompraCoche1.setCellValueFactory(new PropertyValueFactory("precioCompra"));
+        precioVentaCoche1.setCellValueFactory(new PropertyValueFactory("precioVenta"));
+        fechaAltaCoche1.setCellValueFactory(new PropertyValueFactory("fechaAlta"));
+        fechaBajaCoche1.setCellValueFactory(new PropertyValueFactory("fechaVenta"));
+        reparacionCoche1.setCellValueFactory(new PropertyValueFactory("reparado"));
+        proveedorCoche1.setCellValueFactory(new PropertyValueFactory("proveedor"));
+        exposicionCoche1.setCellValueFactory(new PropertyValueFactory("exposicion"));
+        vendedorCoche1.setCellValueFactory(new PropertyValueFactory("vendedor"));
+        clienteCoche1.setCellValueFactory(new PropertyValueFactory("cliente"));
         
         
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
@@ -964,7 +1019,8 @@ public class ControladorVentana implements Initializable{
             entExposicionCoche.setText(String.valueOf(cocheSeleccionado.getExposicion().getIdExposicion()));
             entVendedorCoche.setText(cocheSeleccionado.getVendedor().getDni());
             entClienteCoche.setText(cocheSeleccionado.getCliente().getDni());
-        });   
+        });
+        
     }
     
     public void refrescarProveedores(){
@@ -1011,6 +1067,23 @@ public class ControladorVentana implements Initializable{
     
     
     private void cargarDatos(){
+        
+    }
+    @FXML
+    private void buscarCliente(ActionEvent event){
+        //Introducir aqui o codigo para que mediante este codigo:
+       if(codCoche.getText().isEmpty()){
+           System.out.println("Falta o codigo para realizar a busqueda.");
+       }else{
+        //Atope o cliente que o ten, e devolva varios dos seus datos aqui, por ejemplo estes:
+        textArea.setText("O coche de codigo "+codCoche.getText()+" é propiedade de mendanito, con codigo tal.\nE se non existe, pois que nn existe");
+       }
+        
+    }
+    @FXML
+    private void listarCoches(ActionEvent event){
+        tablaCoches1.setItems(listaCoches);
+        //se queres asegurarte de que funciona, mete coches mediante a interfaz e dalle a listar.
         
     }
 }

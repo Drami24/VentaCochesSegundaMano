@@ -78,52 +78,6 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab text="Coches">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="692.0">
-                                 <content>
-                                    <TableView fx:id="tablaCoches" prefHeight="126.0" prefWidth="675.0">
-                                       <columns>
-                                          <TableColumn fx:id="idCoche" prefWidth="26.0" text="ID" />
-                                          <TableColumn fx:id="marcaCoche" prefWidth="40.0" text="Marca" />
-                                          <TableColumn fx:id="modeloCoche" prefWidth="49.0" text="Modelo" />
-                                          <TableColumn fx:id="matriculaCoche" prefWidth="46.0" text="Matr" />
-                                          <TableColumn fx:id="tipoCoche" prefWidth="60.0" text="Tipo" />
-                                          <TableColumn fx:id="precioCompraCoche" prefWidth="61.0" text="P.Compra" />
-                                          <TableColumn fx:id="precioVentaCoche" prefWidth="51.0" text="P.Venta" />
-                                          <TableColumn fx:id="fechaAltaCoche" prefWidth="39.0" text="F.Alta" />
-                                          <TableColumn fx:id="fechaBajaCoche" prefWidth="47.0" text="F.Venta" />
-                                          <TableColumn fx:id="reparacionCoche" prefWidth="48.0" text="Reparado" />
-                                          <TableColumn fx:id="proveedorCoche" prefWidth="50.0" text="Proveedor" />
-                                          <TableColumn fx:id="exposicionCoche" prefWidth="58.0" text="Exposicion" />
-                                          <TableColumn fx:id="vendedorCoche" prefWidth="54.0" text="Vendedor" />
-                                          <TableColumn fx:id="clienteCoche" prefWidth="45.0" text="Cliente" />
-                                       </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
-                              <Button layoutX="48.0" layoutY="314.0" mnemonicParsing="false" onAction="#altaCoche" text="Alta" />
-                              <Button layoutX="133.0" layoutY="314.0" mnemonicParsing="false" onAction="#bajaCoche" text="Baja" />
-                              <Button layoutX="230.0" layoutY="314.0" mnemonicParsing="false" onAction="#modificacionCoche" text="Modificar" />
-                              <TextField fx:id="entMarcaCoche" layoutX="22.0" layoutY="152.0" promptText="Marca" />
-                              <TextField fx:id="entModeloCoche" layoutX="189.0" layoutY="152.0" promptText="Modelo" />
-                              <TextField fx:id="entMatriculaCoche" layoutX="362.0" layoutY="152.0" promptText="Matricula" />
-                              <ComboBox fx:id="comboCoche" layoutX="534.0" layoutY="152.0" prefWidth="150.0" promptText="Tipo de coche" />
-                              <TextField fx:id="entPrecioCompraCoche" layoutX="22.0" layoutY="190.0" promptText="Precio de compra" />
-                              <TextField fx:id="entPrecioVentaCoche" layoutX="189.0" layoutY="190.0" promptText="Precio de venta" />
-                              <DatePicker fx:id="entFechaAlta" layoutX="361.0" layoutY="190.0" prefHeight="25.0" prefWidth="150.0" promptText="Fecha Alta" />
-                              <DatePicker fx:id="entFechaBaja" layoutX="534.0" layoutY="190.0" prefHeight="25.0" prefWidth="149.0" promptText="Fecha Venta" />
-                              <TextField fx:id="entProveedorCoche" layoutX="256.0" layoutY="225.0" promptText="Codigo Proveedor" />
-                              <TextField fx:id="entExposicionCoche" layoutX="490.0" layoutY="225.0" promptText="Codigo Exposicion" />
-                              <TextField fx:id="entVendedorCoche" layoutX="148.0" layoutY="271.0" promptText="Codigo Vendedor" />
-                              <CheckBox fx:id="checkCoche" layoutX="55.0" layoutY="229.0" mnemonicParsing="false" text="¿Reparado?" />
-                              <TextField fx:id="entClienteCoche" layoutX="362.0" layoutY="271.0" promptText="Codigo Cliente" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
                   <Tab text="Talleres">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -237,6 +191,52 @@
                               <TextField fx:id="entTallerReparacion" layoutX="383.0" layoutY="165.0" promptText="Codigo de Taller" />
                               <TextField fx:id="valorReparacion" layoutX="196.0" layoutY="218.0" promptText="Valor" />
                               <ComboBox fx:id="comboReparacion" layoutX="25.0" layoutY="218.0" prefWidth="150.0" promptText="Tipo de reparacion" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Coches">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="692.0">
+                                 <content>
+                                    <TableView fx:id="tablaCoches" prefHeight="126.0" prefWidth="675.0">
+                                       <columns>
+                                          <TableColumn fx:id="idCoche" prefWidth="26.0" text="ID" />
+                                          <TableColumn fx:id="marcaCoche" prefWidth="40.0" text="Marca" />
+                                          <TableColumn fx:id="modeloCoche" prefWidth="49.0" text="Modelo" />
+                                          <TableColumn fx:id="matriculaCoche" prefWidth="46.0" text="Matr" />
+                                          <TableColumn fx:id="tipoCoche" prefWidth="60.0" text="Tipo" />
+                                          <TableColumn fx:id="precioCompraCoche" prefWidth="61.0" text="P.Compra" />
+                                          <TableColumn fx:id="precioVentaCoche" prefWidth="51.0" text="P.Venta" />
+                                          <TableColumn fx:id="fechaAltaCoche" prefWidth="39.0" text="F.Alta" />
+                                          <TableColumn fx:id="fechaBajaCoche" prefWidth="47.0" text="F.Venta" />
+                                          <TableColumn fx:id="reparacionCoche" prefWidth="48.0" text="Reparado" />
+                                          <TableColumn fx:id="proveedorCoche" prefWidth="50.0" text="Proveedor" />
+                                          <TableColumn fx:id="exposicionCoche" prefWidth="58.0" text="Exposicion" />
+                                          <TableColumn fx:id="vendedorCoche" prefWidth="54.0" text="Vendedor" />
+                                          <TableColumn fx:id="clienteCoche" prefWidth="45.0" text="Cliente" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button layoutX="48.0" layoutY="314.0" mnemonicParsing="false" onAction="#altaCoche" text="Alta" />
+                              <Button layoutX="133.0" layoutY="314.0" mnemonicParsing="false" onAction="#bajaCoche" text="Baja" />
+                              <Button layoutX="230.0" layoutY="314.0" mnemonicParsing="false" onAction="#modificacionCoche" text="Modificar" />
+                              <TextField fx:id="entMarcaCoche" layoutX="22.0" layoutY="152.0" promptText="Marca" />
+                              <TextField fx:id="entModeloCoche" layoutX="189.0" layoutY="152.0" promptText="Modelo" />
+                              <TextField fx:id="entMatriculaCoche" layoutX="362.0" layoutY="152.0" promptText="Matricula" />
+                              <ComboBox fx:id="comboCoche" layoutX="534.0" layoutY="152.0" prefWidth="150.0" promptText="Tipo de coche" />
+                              <CheckBox fx:id="checkCoche" layoutX="55.0" layoutY="229.0" mnemonicParsing="false" text="¿Reparado?" />
+                              <TextField fx:id="entPrecioCompraCoche" layoutX="22.0" layoutY="190.0" promptText="Precio de compra" />
+                              <TextField fx:id="entPrecioVentaCoche" layoutX="189.0" layoutY="190.0" promptText="Precio de venta" />
+                              <DatePicker fx:id="entFechaAlta" layoutX="361.0" layoutY="190.0" prefHeight="25.0" prefWidth="150.0" promptText="Fecha Alta" />
+                              <DatePicker fx:id="entFechaBaja" layoutX="534.0" layoutY="190.0" prefHeight="25.0" prefWidth="149.0" promptText="Fecha Venta" />
+                              <TextField fx:id="entProveedorCoche" layoutX="256.0" layoutY="225.0" promptText="Codigo Proveedor" />
+                              <TextField fx:id="entExposicionCoche" layoutX="490.0" layoutY="225.0" promptText="Codigo Exposicion" />
+                              <TextField fx:id="entVendedorCoche" layoutX="148.0" layoutY="271.0" promptText="Codigo Vendedor" />
+                              <TextField fx:id="entClienteCoche" layoutX="362.0" layoutY="271.0" promptText="Codigo Cliente" />
                            </children>
                         </AnchorPane>
                      </content>

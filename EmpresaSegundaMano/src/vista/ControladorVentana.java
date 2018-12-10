@@ -2,7 +2,7 @@ package vista;
 import empresasegundamano.NewHibernateUtil;
 import java.awt.Color;
 import java.net.URL;
-import pojos.*;
+import mapeos.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -22,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
+import pojos.VendedorAsalariado;
 public class ControladorVentana implements Initializable{
     Cliente clienteSeleccionado= null;
     Proveedor proveedorSeleccionado= null;
@@ -374,7 +375,7 @@ public class ControladorVentana implements Initializable{
             Cliente c;
             c = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),
                     texapel1Cliente.getText(),texapel2Cliente.getText(),
-                    texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
+                    texmovilCliente.getText(),texemailCliente.getText());
             listaClientes.add(c);
             guardarModificar(c);
             refrescarClientes();
@@ -425,7 +426,7 @@ public class ControladorVentana implements Initializable{
         
             e = new Cliente(texdniCliente.getText(),texnombreCliente.getText(),
             texapel1Cliente.getText(),texapel2Cliente.getText(),
-            texmovilCliente.getText(),texemailCliente.getText(),auxfecha);
+            texmovilCliente.getText(),texemailCliente.getText());
             listaClientes.set(aux, e);
             refrescarClientes();
             System.out.println("Editado cliente "+e.getDni());
@@ -536,9 +537,9 @@ public class ControladorVentana implements Initializable{
             }else{
                 Vendedor v;
                 if(texCondicionVendedor.getSelectionModel().getSelectedItem().equals("Asalariado")){
-                    v =new VendedorAsalariado(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                    v =new VendedorAsalariados(texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),Double.parseDouble(texCantidadVendedor.getText()));
                 }else{
-                    v =new VendedorComision(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                    v =new VendedorComision(texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),Double.parseDouble(texCantidadVendedor.getText()));
                 }
                 listaVendedores.add(v);
                 refrescarVendedores();
@@ -588,9 +589,9 @@ public class ControladorVentana implements Initializable{
             }else{
                 
                 if(texCondicionVendedor.getSelectionModel().getSelectedItem().equals("Asalariado")){
-                    v =new VendedorAsalariado(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                     v =new VendedorAsalariados(texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),Double.parseDouble(texCantidadVendedor.getText()));
                 }else{
-                    v =new VendedorComision(Double.parseDouble(texCantidadVendedor.getText()),texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),auxfecha);
+                    v =new VendedorComision(texDniVendedor.getText(),texNombreVendedor.getText(),texApel1Vendedor.getText(),texApel2Vendedor.getText(),texMovilVendedor.getText(),texEmailVendedor.getText(),Double.parseDouble(texCantidadVendedor.getText()));
                 }
                 listaVendedores.set(aux, v);
                 refrescarVendedores();
@@ -626,20 +627,20 @@ public class ControladorVentana implements Initializable{
                 if(comboReparacion.getSelectionModel().getSelectedItem().equals("Chapa")){
                     //OLLO COA TRAMPA
                     Taller t=new Taller("Pepito");
-                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
-                    c =new ReparacionChapa(Color.BLACK,auxfecha,entDescripcionReparacion.getText(),t);
+                    t.setIdtaller(Integer.parseInt(entTallerReparacion.getText()));
+                    c =new ReparacionChapa(Color.BLACK.toString(),auxfecha);
                     
                 }else{
                     if(comboReparacion.getSelectionModel().getSelectedItem().equals("Eléctrica")){
                         //OLLO COA TRAMPA
                         Taller t=new Taller("Pepito");
-                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
-                        c =new ReparacionElectrica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    t.setIdtaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionElectrica(valorReparacion.getText());
                     }else{
                         //OLLO COA TRAMPA
                         Taller t=new Taller("Pepito");
-                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
-                        c =new ReparacionMecanica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    t.setIdtaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionMecanica(valorReparacion.getText());
                     }
                 }
                 listaReparaciones.add(c);
@@ -688,19 +689,19 @@ public class ControladorVentana implements Initializable{
                 if(comboReparacion.getSelectionModel().getSelectedItem().equals("Chapa")){
                     //OLLO COA TRAMPA
                     Taller t=new Taller("Pepito");
-                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
-                    c = new ReparacionChapa(Color.BLACK,auxfecha,entDescripcionReparacion.getText(),t);
+                    t.setIdtaller(Integer.parseInt(entTallerReparacion.getText()));
+                    c =new ReparacionChapa(Color.BLACK.toString(),auxfecha);
                 }else{
                     if(comboReparacion.getSelectionModel().getSelectedItem().equals("Eléctrica")){
                         //OLLO COA TRAMPA
                         Taller t=new Taller("Pepito");
-                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
-                        c =new ReparacionElectrica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    t.setIdtaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionElectrica(valorReparacion.getText());
                     }else{
                         //OLLO COA TRAMPA
                         Taller t=new Taller("Pepito");
-                    t.setIdTaller(Integer.parseInt(entTallerReparacion.getText()));
-                        c =new ReparacionMecanica(valorReparacion.getText(),auxfecha,entDescripcionReparacion.getText(),t);
+                    t.setIdtaller(Integer.parseInt(entTallerReparacion.getText()));
+                        c =new ReparacionMecanica(valorReparacion.getText());
                     }
                 }
                 listaReparaciones.set(aux,c);
@@ -727,7 +728,7 @@ public class ControladorVentana implements Initializable{
         Date auxfecha2;
         Proveedor proveedor = new Proveedor();//OLLO COA TRAMPA
         Exposicion expo = new Exposicion();//OLLO COA TRAMPA
-        Vendedor vendedor = new VendedorAsalariado();//OLLO COA TRAMPA
+        Vendedor vendedor = new VendedorAsalariados();//OLLO COA TRAMPA
         Cliente cliente= new Cliente();//OLLO COA TRAMPA
         try{
             int dia=entFechaAlta.getValue().getDayOfMonth();
@@ -744,14 +745,14 @@ public class ControladorVentana implements Initializable{
                 entVendedorCoche.getText().isEmpty() || entClienteCoche.getText().isEmpty()){
             System.out.println("Faltan datos, rellene todos los campos");
         }else{
-            proveedor.setIdProveedor(Integer.parseInt(entProveedorCoche.getText()));
-            expo.setIdExposicion(Integer.parseInt(entExposicionCoche.getText()));
+            proveedor.setIdproveedor(Integer.parseInt(entProveedorCoche.getText()));
+            expo.setIdexposicion(Integer.parseInt(entExposicionCoche.getText()));
             vendedor.setDni(entVendedorCoche.getText());
             cliente.setDni(entClienteCoche.getText());
             double compra=Double.parseDouble(entPrecioCompraCoche.getText());
             double venta=Double.parseDouble(entPrecioVentaCoche.getText());
             //OLLO COA TRAMPA
-            Coche c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(),compra, venta, checkCoche.isSelected(), auxfecha1, auxfecha2, proveedor, expo, vendedor, cliente);
+            Coche c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(), "",compra, venta,true);
             listaCoches.add(c);
             refrescarCoches();
             entMarcaCoche.setText(vaciadorString);
@@ -795,7 +796,7 @@ public class ControladorVentana implements Initializable{
         Date auxfecha2;
         Proveedor proveedor = new Proveedor();//OLLO COA TRAMPA
         Exposicion expo = new Exposicion();//OLLO COA TRAMPA
-        Vendedor vendedor = new VendedorAsalariado();//OLLO COA TRAMPA
+        Vendedor vendedor = new VendedorAsalariados();//OLLO COA TRAMPA
         Cliente cliente= new Cliente();//OLLO COA TRAMPA
         try{
             int dia=entFechaAlta.getValue().getDayOfMonth();
@@ -812,14 +813,14 @@ public class ControladorVentana implements Initializable{
                 entVendedorCoche.getText().isEmpty() || entClienteCoche.getText().isEmpty()){
             System.out.println("Faltan datos, rellene todos los campos");
         }else{
-            proveedor.setIdProveedor(Integer.parseInt(entProveedorCoche.getText()));
-            expo.setIdExposicion(Integer.parseInt(entExposicionCoche.getText()));
+            proveedor.setIdproveedor(Integer.parseInt(entProveedorCoche.getText()));
+            expo.setIdexposicion(Integer.parseInt(entExposicionCoche.getText()));
             vendedor.setDni(entVendedorCoche.getText());
             cliente.setDni(entClienteCoche.getText());
             double compra=Double.parseDouble(entPrecioCompraCoche.getText());
             double venta=Double.parseDouble(entPrecioVentaCoche.getText());
             //OLLO COA TRAMPA
-            c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(),compra, venta, checkCoche.isSelected(), auxfecha1, auxfecha2, proveedor, expo, vendedor, cliente);
+            c= new Coche(entMarcaCoche.getText(), entModeloCoche.getText(), entMatriculaCoche.getText(), "",compra, venta,true);
             listaCoches.set(aux,c);
             refrescarCoches();
             entMarcaCoche.setText(vaciadorString);
@@ -955,7 +956,7 @@ public class ControladorVentana implements Initializable{
         (ObservableValue<? extends Object> observable, Object oldValue, Object newValue) ->{
             vendedorSeleccionado=null;
             if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.VendedorAsalariado")){
-                VendedorAsalariado v =(VendedorAsalariado)newValue;
+                VendedorAsalariados v =(VendedorAsalariados)newValue;
                 vendedorSeleccionado=v;
                 texDniVendedor.setText(v.getDni());
                 texNombreVendedor.setText(v.getNombre());
@@ -963,8 +964,8 @@ public class ControladorVentana implements Initializable{
                 texApel2Vendedor.setText(v.getApellido2());
                 texMovilVendedor.setText(v.getMovil());
                 texEmailVendedor.setText(v.getEmail());
-                LocalDate ld=LocalDate.of(v.getFechaAlta().getYear(), v.getFechaAlta().getMonth(), v.getFechaAlta().getDate());
-                altaVendedor.setValue(ld);
+                
+               
                 texCantidadVendedor.setText(String.valueOf(v.getSalario()));
                 texCondicionVendedor.getSelectionModel().select("Asalariado");
             }else{
@@ -976,8 +977,8 @@ public class ControladorVentana implements Initializable{
                 texApel2Vendedor.setText(v.getApellido2());
                 texMovilVendedor.setText(v.getMovil());
                 texEmailVendedor.setText(v.getEmail());
-                LocalDate ld=LocalDate.of(v.getFechaAlta().getYear(), v.getFechaAlta().getMonth(), v.getFechaAlta().getDate());
-                altaVendedor.setValue(ld);
+                
+                
                 texCantidadVendedor.setText(String.valueOf(v.getComision()));
                 texCondicionVendedor.getSelectionModel().select("Comisionista");
             }
@@ -990,33 +991,30 @@ public class ControladorVentana implements Initializable{
         tablaReparacion.getSelectionModel().selectedItemProperty().addListener(
         (ObservableValue<? extends Object> observable, Object oldValue, Object newValue) ->{
             reparacionSeleccionada=null;
-            if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.ReparacionChapa")){
+            if(newValue.getClass().getCanonicalName().equalsIgnoreCase("mapeos.ReparacionChapa")){
                 ReparacionChapa rc =(ReparacionChapa)newValue;
                 reparacionSeleccionada=rc;
-                LocalDate ld=LocalDate.of(rc.getFecha().getYear(), rc.getFecha().getMonth(), rc.getFecha().getDate());
-                entfechaReparacion.setValue(ld);
+                
                 entDescripcionReparacion.setText(rc.getDescripcion());
-                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdTaller()));
+                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdtaller()));
                 comboReparacion.getSelectionModel().select("Chapa");
-                valorReparacion.setText(rc.getColorChapa().toString());
+                valorReparacion.setText(rc.getColorchapa().toString());
             }else{
-                if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.ReparacionElectrica")){
+                if(newValue.getClass().getCanonicalName().equalsIgnoreCase("mapeos.ReparacionElectrica")){
                 ReparacionElectrica rc =(ReparacionElectrica)newValue;
                 reparacionSeleccionada=rc;
-                LocalDate ld=LocalDate.of(rc.getFecha().getYear(), rc.getFecha().getMonth(), rc.getFecha().getDate());
-                entfechaReparacion.setValue(ld);
+               
                 entDescripcionReparacion.setText(rc.getDescripcion());
-                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdTaller()));
+                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdtaller()));
                 comboReparacion.getSelectionModel().select("Eléctrica");
                 valorReparacion.setText(rc.getComponente());
                 }else{
-                    if(newValue.getClass().getCanonicalName().equalsIgnoreCase("pojos.ReparacionMecanica")){
+                    if(newValue.getClass().getCanonicalName().equalsIgnoreCase("mapeos.ReparacionMecanica")){
                 ReparacionMecanica rc =(ReparacionMecanica)newValue;
                 reparacionSeleccionada=rc;
-                LocalDate ld=LocalDate.of(rc.getFecha().getYear(), rc.getFecha().getMonth(), rc.getFecha().getDate());
-                entfechaReparacion.setValue(ld);
+               
                 entDescripcionReparacion.setText(rc.getDescripcion());
-                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdTaller()));
+                entTallerReparacion.setText(String.valueOf(rc.getTaller().getIdtaller()));
                 comboReparacion.getSelectionModel().select("Mecanica");
                 valorReparacion.setText(rc.getParte());
                 }}
@@ -1033,19 +1031,16 @@ public class ControladorVentana implements Initializable{
             entMarcaCoche.setText(cocheSeleccionado.getMarca());
             entModeloCoche.setText(cocheSeleccionado.getModelo());
             entMatriculaCoche.setText(cocheSeleccionado.getMatricula());
-            entPrecioCompraCoche.setText(String.valueOf(cocheSeleccionado.getPrecioCompra()));
-            entPrecioVentaCoche.setText(String.valueOf(cocheSeleccionado.getPrecioVenta()));
-            LocalDate ld=LocalDate.of(cocheSeleccionado.getFechaAlta().getYear(),cocheSeleccionado.getFechaAlta().getMonth(), cocheSeleccionado.getFechaAlta().getDate());
-            entFechaAlta.setValue(ld);
-            LocalDate la=LocalDate.of(cocheSeleccionado.getFechaVenta().getYear(),cocheSeleccionado.getFechaVenta().getMonth(), cocheSeleccionado.getFechaVenta().getDate());
-            entFechaBaja.setValue(la);
+            entPrecioCompraCoche.setText(String.valueOf(cocheSeleccionado.getPreciocompra()));
+            entPrecioVentaCoche.setText(String.valueOf(cocheSeleccionado.getPrecioventa()));
+           
             if(cocheSeleccionado.isReparado()){
                 checkCoche.setSelected(true);
             }else{
                 checkCoche.setSelected(false);
             }
-            entProveedorCoche.setText(String.valueOf(cocheSeleccionado.getProveedor().getIdProveedor()));
-            entExposicionCoche.setText(String.valueOf(cocheSeleccionado.getExposicion().getIdExposicion()));
+            entProveedorCoche.setText(String.valueOf(cocheSeleccionado.getProveedor().getIdproveedor()));
+            entExposicionCoche.setText(String.valueOf(cocheSeleccionado.getExposicion().getIdexposicion()));
             entVendedorCoche.setText(cocheSeleccionado.getVendedor().getDni());
             entClienteCoche.setText(cocheSeleccionado.getCliente().getDni());
         });

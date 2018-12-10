@@ -32,7 +32,7 @@ public class ReparacionMecanica extends Reparacion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDREPARACION")
-    private Integer idreparacion;
+    private int idreparacion;
     @Basic(optional = false)
     @Column(name = "PARTE")
     private String parte;
@@ -52,11 +52,11 @@ public class ReparacionMecanica extends Reparacion implements Serializable {
         this.parte = parte;
     }
 
-    public Integer getIdreparacion() {
+    public int getIdreparacion() {
         return idreparacion;
     }
 
-    public void setIdreparacion(Integer idreparacion) {
+    public void setIdreparacion(int idreparacion) {
         this.idreparacion = idreparacion;
     }
 
@@ -76,25 +76,7 @@ public class ReparacionMecanica extends Reparacion implements Serializable {
         this.reparacion = reparacion;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idreparacion != null ? idreparacion.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ReparacionMecanica)) {
-            return false;
-        }
-        ReparacionMecanica other = (ReparacionMecanica) object;
-        if ((this.idreparacion == null && other.idreparacion != null) || (this.idreparacion != null && !this.idreparacion.equals(other.idreparacion))) {
-            return false;
-        }
-        return true;
-    }
+    
 
     @Override
     public String toString() {

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @MappedSuperclass
 @Table(name = "vendedorescomision")
 @XmlRootElement
-public class VendedorComision implements Serializable {
+public class VendedorComision extends Vendedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,10 +44,14 @@ public class VendedorComision implements Serializable {
         this.dni = dni;
     }
 
-    public VendedorComision(String dni, double comision) {
+    public VendedorComision(String dni, String nombre, String apellido1, String apellido2, String movil, String email,double comision) {
+        super(dni, nombre, apellido1, apellido2, movil, email);
         this.dni = dni;
         this.comision = comision;
+        this.vendedor = vendedor;
     }
+
+    
 
     public String getDni() {
         return dni;

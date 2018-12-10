@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @MappedSuperclass
 @Table(name = "reparacionesmecanicas")
 @XmlRootElement
-public class ReparacionMecanica implements Serializable {
+public class ReparacionMecanica extends Reparacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,8 +47,8 @@ public class ReparacionMecanica implements Serializable {
         this.idreparacion = idreparacion;
     }
 
-    public ReparacionMecanica(Integer idreparacion, String parte) {
-        this.idreparacion = idreparacion;
+    public ReparacionMecanica( String parte) {
+       
         this.parte = parte;
     }
 

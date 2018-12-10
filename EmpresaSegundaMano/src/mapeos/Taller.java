@@ -34,7 +34,7 @@ public class Taller implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDTALLER")
-    private Integer idtaller;
+    private int idtaller;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
@@ -48,16 +48,16 @@ public class Taller implements Serializable {
         this.idtaller = idtaller;
     }
 
-    public Taller(Integer idtaller, String nombre) {
-        this.idtaller = idtaller;
+    public Taller(String nombre) {
+        
         this.nombre = nombre;
     }
 
-    public Integer getIdtaller() {
+    public int getIdtaller() {
         return idtaller;
     }
 
-    public void setIdtaller(Integer idtaller) {
+    public void setIdtaller(int idtaller) {
         this.idtaller = idtaller;
     }
 
@@ -78,25 +78,10 @@ public class Taller implements Serializable {
         this.reparacionSet = reparacionSet;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idtaller != null ? idtaller.hashCode() : 0);
-        return hash;
-    }
+   
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Taller)) {
-            return false;
-        }
-        Taller other = (Taller) object;
-        if ((this.idtaller == null && other.idtaller != null) || (this.idtaller != null && !this.idtaller.equals(other.idtaller))) {
-            return false;
-        }
-        return true;
-    }
+    
+   
 
     @Override
     public String toString() {

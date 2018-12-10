@@ -486,14 +486,16 @@ public class ControladorVentana implements Initializable{
         if(texNombreExpo.getText().isEmpty() || texLugarExpo.getText().isEmpty()){
             System.out.println("Faltan datos");
         }else{
+            
             Exposicion e= new Exposicion();
             e.setNombre(texNombreExpo.getText());
             e.setLugar(texLugarExpo.getText());
             listaExpos.add(e);
+            guardarModificar(e);
             texNombreExpo.setText(vaciadorString);
             texLugarExpo.setText(vaciadorString);
             refresarExposiciones();
-            guardarModificar(e);
+            
         }
     }
     @FXML
@@ -543,6 +545,7 @@ public class ControladorVentana implements Initializable{
                 }
                 listaVendedores.add(v);
                 refrescarVendedores();
+                guardarModificar(v);
                 texDniVendedor.setText(vaciadorString);
                 texNombreVendedor.setText(vaciadorString);
                 texApel1Vendedor.setText(vaciadorString);
@@ -551,7 +554,7 @@ public class ControladorVentana implements Initializable{
                 texCondicionVendedor.getSelectionModel().select(null);
                 texCantidadVendedor.setText(vaciadorString);
                 altaVendedor.setValue(vaciadorAlta);
-                guardarModificar(v);
+                
             }
             }catch(RuntimeException rte1){
                 System.out.println("Non se introdujo fecha");

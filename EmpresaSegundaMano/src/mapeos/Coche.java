@@ -89,8 +89,8 @@ public class Coche implements Serializable {
         this.idcoche = idcoche;
     }
 
-    public Coche(Integer idcoche, String marca, String modelo, String matricula, String tipo, double preciocompra, double precioventa, boolean reparado) {
-        this.idcoche = idcoche;
+    public Coche( String marca, String modelo, String matricula, String tipo, double preciocompra, double precioventa, boolean reparado) {
+       
         this.marca = marca;
         this.modelo = modelo;
         this.matricula = matricula;
@@ -227,6 +227,13 @@ public class Coche implements Serializable {
         hash += (idcoche != null ? idcoche.hashCode() : 0);
         return hash;
     }
+
+    public boolean isReparado() {
+        return reparado;
+    }
+    
+    
+    
 
     @Override
     public boolean equals(Object object) {

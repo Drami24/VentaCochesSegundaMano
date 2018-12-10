@@ -6,6 +6,7 @@
 package mapeos;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @MappedSuperclass
 @Table(name = "reparacioneschapa")
 @XmlRootElement
-public class ReparacionChapa implements Serializable {
+public class ReparacionChapa extends Reparacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,10 +48,14 @@ public class ReparacionChapa implements Serializable {
         this.idreparacion = idreparacion;
     }
 
-    public ReparacionChapa(Integer idreparacion, String colorchapa) {
-        this.idreparacion = idreparacion;
+    public ReparacionChapa(String colorchapa, Date fechareparacion) {
+       
+        
         this.colorchapa = colorchapa;
+        
     }
+
+    
 
     public Integer getIdreparacion() {
         return idreparacion;

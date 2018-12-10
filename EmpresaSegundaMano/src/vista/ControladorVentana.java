@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
-import javafx.event.EventType;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -22,7 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
-import pojos.VendedorAsalariado;
+
 public class ControladorVentana implements Initializable{
     Cliente clienteSeleccionado= null;
     Proveedor proveedorSeleccionado= null;
@@ -296,13 +295,16 @@ public class ControladorVentana implements Initializable{
             int mes=fechaAltaProveedor.getValue().getMonthValue()-1; //se resta 1 mes para cuadrar la fecha
             int año=(fechaAltaProveedor.getValue().getYear()-1900); //se resta 1900 años para cuadrar la fecha
             auxfecha= new Date(año,mes,dia);
-            fechaAltaProveedor.setValue(vaciadorAlta);
+            
             if(!texNombreProveedor.getText().isEmpty()){
             System.out.println(texNombreProveedor.getText());
             auxname=texNombreProveedor.getText();
-            texNombreProveedor.setText(vaciadorString);
+            
             Proveedor p=new Proveedor(auxname,auxfecha);
+            
             listaProveedores.add(p);
+            texNombreProveedor.setText(vaciadorString);
+            fechaAltaProveedor.setValue(vaciadorAlta);
             refrescarProveedores();
             guardarModificar(p);
         }

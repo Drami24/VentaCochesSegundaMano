@@ -6,6 +6,7 @@
 package mapeos;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -25,14 +26,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @MappedSuperclass
 @Table(name = "reparacioneschapa")
 @XmlRootElement
-public class ReparacionChapa implements Serializable {
+public class ReparacionChapa extends Reparacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDREPARACION")
-    private Integer idreparacion;
+    private int idreparacion;
     @Basic(optional = false)
     @Column(name = "COLORCHAPA")
     private String colorchapa;
@@ -47,16 +48,21 @@ public class ReparacionChapa implements Serializable {
         this.idreparacion = idreparacion;
     }
 
-    public ReparacionChapa(Integer idreparacion, String colorchapa) {
-        this.idreparacion = idreparacion;
+    public ReparacionChapa(String colorchapa, Date fechareparacion) {
+       
+        
         this.colorchapa = colorchapa;
+        
     }
 
-    public Integer getIdreparacion() {
+    
+
+    @Override
+    public int getIdreparacion() {
         return idreparacion;
     }
 
-    public void setIdreparacion(Integer idreparacion) {
+    public void setIdreparacion(int idreparacion) {
         this.idreparacion = idreparacion;
     }
 
@@ -76,26 +82,9 @@ public class ReparacionChapa implements Serializable {
         this.reparacion = reparacion;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idreparacion != null ? idreparacion.hashCode() : 0);
-        return hash;
-    }
+   
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ReparacionChapa)) {
-            return false;
-        }
-        ReparacionChapa other = (ReparacionChapa) object;
-        if ((this.idreparacion == null && other.idreparacion != null) || (this.idreparacion != null && !this.idreparacion.equals(other.idreparacion))) {
-            return false;
-        }
-        return true;
-    }
-
+    
     @Override
     public String toString() {
         return "mapeos.ReparacionChapa[ idreparacion=" + idreparacion + " ]";

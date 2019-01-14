@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 3 dec, 2018 12:01:33 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="mapeos.VendedorAsalariados" table="VENDEDORASALARIADOS">
+    <class name="mapeos.VendedorAsalariados" table="VENDEDORESASALARIADOS">
         
         <id name="dni" type="java.lang.String">
             <column name="DNI" />

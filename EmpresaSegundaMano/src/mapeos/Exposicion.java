@@ -51,8 +51,8 @@ public class Exposicion implements Serializable {
         this.idexposicion = idexposicion;
     }
 
-    public Exposicion(Integer idexposicion, String nombre, String lugar) {
-        this.idexposicion = idexposicion;
+    public Exposicion( String nombre, String lugar) {
+       
         this.nombre = nombre;
         this.lugar = lugar;
     }

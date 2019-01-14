@@ -38,7 +38,7 @@ public class Proveedor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDPROVEEDOR")
-    private int idproveedor;
+    private Integer idproveedor;
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
@@ -49,6 +49,12 @@ public class Proveedor implements Serializable {
     private Set<Coche> cocheSet;
 
     public Proveedor() {
+    }
+    
+    
+    
+    public Proveedor(Integer idproveedor){
+        this.idproveedor=idproveedor;
     }
 
     public Proveedor (String nombre, Date fechaalta) {
@@ -62,11 +68,11 @@ public class Proveedor implements Serializable {
         
     
 
-    public int getIdproveedor() {
+    public Integer getIdproveedor() {
         return idproveedor;
     }
 
-    public void setIdproveedor(int idproveedor) {
+    public void setIdproveedor(Integer idproveedor) {
         this.idproveedor = idproveedor;
     }
 

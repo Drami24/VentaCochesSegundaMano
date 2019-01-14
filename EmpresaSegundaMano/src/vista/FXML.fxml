@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane id="PanelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@estilo.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorVentana">
+<TabPane id="PanelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="724.0" stylesheets="@estilo.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.ControladorVentana">
   <tabs>
     <Tab text="Gestión de datos">
          <content>
@@ -20,24 +25,24 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane layoutX="8.0" layoutY="14.0" prefHeight="124.0" prefWidth="585.0">
+                              <ScrollPane layoutX="15.0" layoutY="14.0" prefHeight="124.0" prefWidth="695.0">
                                  <content>
-                                    <TableView fx:id="tablaCliente" prefHeight="126.0" prefWidth="566.0">
+                                    <TableView fx:id="tablaClientes" prefHeight="126.0" prefWidth="677.0">
                                        <columns>
                                           <TableColumn fx:id="dniCliente" prefWidth="75.0" text="DNI" />
                                           <TableColumn fx:id="nombreCliente" prefWidth="75.0" text="Nombre" />
                                           <TableColumn fx:id="apellido1Cliente" prefWidth="87.0" text="1º Apellido" />
                                           <TableColumn fx:id="apellido2Cliente" prefWidth="87.0" text="2ºApellido" />
                                           <TableColumn fx:id="movilCliente" prefWidth="89.0" text="Movil" />
-                                          <TableColumn fx:id="emailCliente" prefWidth="64.0" text="Email" />
-                                          <TableColumn fx:id="fechaCliente" prefWidth="84.0" text="F.Alta" />
+                                          <TableColumn fx:id="emailCliente" prefWidth="107.0" text="Email" />
+                                          <TableColumn fx:id="fechaCliente" prefWidth="156.0" text="F.Alta" />
                                        </columns>
                                     </TableView>
                                  </content>
                               </ScrollPane>
                               <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" onAction="#darAltaCliente" text="Alta" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Baja" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Modificar" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" onAction="#darBajaCliente" text="Baja" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" onAction="#ModificarCliente" text="Modificar" />
                               <DatePicker fx:id="entfechaCliente" layoutX="269.0" layoutY="206.0" promptText="Fecha de alta" />
                               <TextField fx:id="texdniCliente" layoutX="14.0" layoutY="154.0" prefHeight="0.0" prefWidth="91.0" promptText="DNI" />
                               <TextField fx:id="texnombreCliente" layoutX="124.0" layoutY="154.0" prefHeight="28.0" prefWidth="90.0" promptText="Nombre" />
@@ -53,13 +58,13 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="109.0" prefWidth="570.0">
+                              <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="109.0" prefWidth="695.0">
                                  <content>
-                                    <TableView fx:id="tablaProveedores" editable="true" prefHeight="108.0" prefWidth="535.0">
+                                    <TableView fx:id="tablaProveedores" editable="true" prefHeight="108.0" prefWidth="677.0">
                                       <columns>
-                                        <TableColumn fx:id="idProveedor" prefWidth="75.0" text="ID" />
-                                        <TableColumn fx:id="nombreProveedor" prefWidth="95.0" text="Nombre" />
-                                          <TableColumn fx:id="fechaProveedor" prefWidth="92.0" text="Alta" />
+                                        <TableColumn fx:id="idProveedor" prefWidth="209.0" text="ID" />
+                                        <TableColumn fx:id="nombreProveedor" prefWidth="252.0" text="Nombre" />
+                                          <TableColumn fx:id="fechaProveedor" prefWidth="215.0" text="Alta" />
                                       </columns>
                                     </TableView>
                                  </content>
@@ -73,51 +78,52 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab text="Coches">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <Tab text="Talleres">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
-                                 <content>
-                                    <TableView prefHeight="126.0" prefWidth="537.0">
-                                       <columns>
-                                          <TableColumn prefWidth="76.0" text="ID" />
-                                          <TableColumn prefWidth="74.0" text="C2" />
-                                       </columns>
-                                    </TableView>
-                                 </content>
+                              <ScrollPane layoutX="27.0" layoutY="14.0" prefHeight="128.0" prefWidth="681.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="517.0">
+                                       <children>
+                                          <TableView fx:id="tablaTaller" layoutX="2.0" prefHeight="143.0" prefWidth="661.0">
+                                            <columns>
+                                              <TableColumn fx:id="idTaller" prefWidth="323.0" text="ID" />
+                                              <TableColumn fx:id="nombreTaller" minWidth="0.0" prefWidth="335.0" text="Nome" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
                               </ScrollPane>
-                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="394.0" layoutY="206.0" />
-                              <TextField layoutX="25.0" layoutY="206.0" />
-                              <TextField layoutX="215.0" layoutY="207.0" />
+                              <Button fx:id="altaTaller" layoutX="28.0" layoutY="273.0" mnemonicParsing="false" onAction="#altaTaller" text="Alta" />
+                              <Button fx:id="bajaTaller" layoutX="103.0" layoutY="273.0" mnemonicParsing="false" onAction="#bajaTaller" text="Baja" />
+                              <Button fx:id="modificarTaller" layoutX="177.0" layoutY="273.0" mnemonicParsing="false" onAction="#modificacionTaller" text="Modificación" />
+                              <TextField fx:id="texNombreTaller" layoutX="28.0" layoutY="181.0" promptText="Nombre" />
                            </children>
                         </AnchorPane>
-                     </content>
+                    </content>
                   </Tab>
                 <Tab text="Exposiciones">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane layoutX="11.0" layoutY="14.0" prefHeight="124.0" prefWidth="568.0">
+                              <ScrollPane layoutX="11.0" layoutY="14.0" prefHeight="124.0" prefWidth="698.0">
                                  <content>
-                                    <TableView prefHeight="126.0" prefWidth="538.0">
+                                    <TableView fx:id="tablaExpo" prefHeight="126.0" prefWidth="679.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="ID" />
-                                        <TableColumn prefWidth="75.0" text="Nombre" />
-                                          <TableColumn prefWidth="75.0" text="Lugar" />
+                                        <TableColumn fx:id="idExpo" prefWidth="212.0" text="ID" />
+                                        <TableColumn fx:id="nombreExpo" prefWidth="248.0" text="Nombre" />
+                                          <TableColumn fx:id="lugarExpo" prefWidth="218.0" text="Lugar" />
                                       </columns>
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="394.0" layoutY="206.0" />
-                              <TextField layoutX="25.0" layoutY="206.0" />
-                              <TextField layoutX="215.0" layoutY="207.0" />
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" onAction="#altaExpo" text="Alta" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" onAction="#baixaExpo" text="Baja" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" onAction="#modificacionExpo" text="Modificacion" />
+                              <TextField fx:id="texNombreExpo" layoutX="25.0" layoutY="206.0" promptText="Nombre" />
+                              <TextField fx:id="texLugarExpo" layoutX="215.0" layoutY="207.0" promptText="Lugar" />
                            </children></AnchorPane>
                      </content>
                 </Tab>
@@ -125,22 +131,35 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
+                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="686.0">
                                  <content>
-                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                    <TableView fx:id="tablaVendedor" prefHeight="126.0" prefWidth="669.0">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="ID" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
+                                          <TableColumn fx:id="dniVendedor" prefWidth="60.0" text="Dni" />
+                                          <TableColumn fx:id="nombreVendedor" prefWidth="54.0" text="Nombre" />
+                                          <TableColumn fx:id="apellido1Vendedor" prefWidth="50.0" text="Apell1" />
+                                          <TableColumn fx:id="apellido2Vendedor" prefWidth="59.0" text="Apell2" />
+                                          <TableColumn fx:id="movilVendedor" prefWidth="67.0" text="Movil" />
+                                          <TableColumn fx:id="emailVendedor" prefWidth="89.0" text="Email" />
+                                          <TableColumn fx:id="salarioVendedor" prefWidth="59.0" text="Salario" />
+                                          <TableColumn fx:id="comisionVendedor" prefWidth="57.0" text="Comision" />
+                                          <TableColumn fx:id="fechaVendedor" prefWidth="173.0" text="FechaAlta" />
                                        </columns>
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="394.0" layoutY="206.0" />
-                              <TextField layoutX="25.0" layoutY="206.0" />
-                              <TextField layoutX="215.0" layoutY="207.0" />
+                              <Button layoutX="35.0" layoutY="287.0" mnemonicParsing="false" onAction="#altaVendedor" text="Alta" />
+                              <Button layoutX="123.0" layoutY="287.0" mnemonicParsing="false" onAction="#bajaVendedor" text="Baja" />
+                              <Button layoutX="216.0" layoutY="287.0" mnemonicParsing="false" onAction="#modificacionVendedor" text="Modificar" />
+                              <DatePicker fx:id="altaVendedor" layoutX="391.0" layoutY="250.0" prefHeight="25.0" prefWidth="152.0" />
+                              <TextField fx:id="texDniVendedor" layoutX="26.0" layoutY="159.0" promptText="Dni" />
+                              <TextField fx:id="texNombreVendedor" layoutX="216.0" layoutY="159.0" promptText="Nombre" />
+                              <TextField fx:id="texApel1Vendedor" layoutX="394.0" layoutY="159.0" promptText="1º Apellido" />
+                              <TextField fx:id="texApel2Vendedor" layoutX="26.0" layoutY="206.0" promptText="2º Apellido" />
+                              <TextField fx:id="texMovilVendedor" layoutX="216.0" layoutY="206.0" promptText="Movil" />
+                              <TextField fx:id="texEmailVendedor" layoutX="394.0" layoutY="206.0" promptText="eMail" />
+                              <ComboBox fx:id="texCondicionVendedor" editable="true" layoutX="26.0" layoutY="250.0" prefWidth="150.0" promptText="Condicion" />
+                              <TextField fx:id="texCantidadVendedor" layoutX="216.0" layoutY="250.0" promptText="Cantidad" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -151,20 +170,73 @@
                            <children>
                               <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="557.0">
                                  <content>
-                                    <TableView prefHeight="126.0" prefWidth="537.0">
+                                    <TableView fx:id="tablaReparacion" prefHeight="126.0" prefWidth="537.0">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="ID" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
+                                          <TableColumn fx:id="idReparacion" prefWidth="43.0" text="Id" />
+                                          <TableColumn fx:id="fechaReparacion" prefWidth="90.0" text="Fecha" />
+                                          <TableColumn fx:id="descripcionReparacion" prefWidth="85.0" text="Descripcion" />
+                                          <TableColumn fx:id="tallerReparacion" prefWidth="50.0" text="Taller" />
+                                          <TableColumn fx:id="chapaReparacion" prefWidth="63.0" text="Chapa(Color)" />
+                                          <TableColumn fx:id="electricaReparacion" prefWidth="101.0" text="Elect(Compoñente)" />
+                                          <TableColumn fx:id="mecanicaReparacion" prefWidth="104.0" text="Mecánica(Parte)" />
                                        </columns>
                                     </TableView>
                                  </content>
                               </ScrollPane>
-                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" text="Button" />
-                              <DatePicker layoutX="394.0" layoutY="206.0" />
-                              <TextField layoutX="25.0" layoutY="206.0" />
-                              <TextField layoutX="215.0" layoutY="207.0" />
+                              <Button layoutX="48.0" layoutY="262.0" mnemonicParsing="false" onAction="#altaReparacion" text="Alta" />
+                              <Button layoutX="141.0" layoutY="262.0" mnemonicParsing="false" onAction="#bajaReparacion" text="Baja" />
+                              <Button layoutX="238.0" layoutY="262.0" mnemonicParsing="false" onAction="#modificacionReparacion" text="Modificacion" />
+                              <DatePicker fx:id="entfechaReparacion" layoutX="22.0" layoutY="165.0" promptText="Fecha" />
+                              <TextField fx:id="entDescripcionReparacion" layoutX="216.0" layoutY="165.0" promptText="Descripcion" />
+                              <TextField fx:id="entTallerReparacion" layoutX="383.0" layoutY="165.0" promptText="Codigo de Taller" />
+                              <TextField fx:id="valorReparacion" layoutX="196.0" layoutY="218.0" promptText="Valor" />
+                              <ComboBox fx:id="comboReparacion" layoutX="25.0" layoutY="218.0" prefWidth="150.0" promptText="Tipo de reparacion" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Coches">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane layoutX="22.0" layoutY="14.0" prefHeight="124.0" prefWidth="692.0">
+                                 <content>
+                                    <TableView fx:id="tablaCoches" prefHeight="126.0" prefWidth="675.0">
+                                       <columns>
+                                          <TableColumn fx:id="idCoche" prefWidth="26.0" text="ID" />
+                                          <TableColumn fx:id="marcaCoche" prefWidth="40.0" text="Marca" />
+                                          <TableColumn fx:id="modeloCoche" prefWidth="49.0" text="Modelo" />
+                                          <TableColumn fx:id="matriculaCoche" prefWidth="46.0" text="Matr" />
+                                          <TableColumn fx:id="tipoCoche" prefWidth="60.0" text="Tipo" />
+                                          <TableColumn fx:id="precioCompraCoche" prefWidth="61.0" text="P.Compra" />
+                                          <TableColumn fx:id="precioVentaCoche" prefWidth="51.0" text="P.Venta" />
+                                          <TableColumn fx:id="fechaAltaCoche" prefWidth="39.0" text="F.Alta" />
+                                          <TableColumn fx:id="fechaBajaCoche" prefWidth="47.0" text="F.Venta" />
+                                          <TableColumn fx:id="reparacionCoche" prefWidth="48.0" text="Reparado" />
+                                          <TableColumn fx:id="proveedorCoche" prefWidth="50.0" text="Proveedor" />
+                                          <TableColumn fx:id="exposicionCoche" prefWidth="58.0" text="Exposicion" />
+                                          <TableColumn fx:id="vendedorCoche" prefWidth="54.0" text="Vendedor" />
+                                          <TableColumn fx:id="clienteCoche" prefWidth="45.0" text="Cliente" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button layoutX="48.0" layoutY="314.0" mnemonicParsing="false" onAction="#altaCoche" text="Alta" />
+                              <Button layoutX="133.0" layoutY="314.0" mnemonicParsing="false" onAction="#bajaCoche" text="Baja" />
+                              <Button layoutX="230.0" layoutY="314.0" mnemonicParsing="false" onAction="#modificacionCoche" text="Modificar" />
+                              <TextField fx:id="entMarcaCoche" layoutX="22.0" layoutY="152.0" promptText="Marca" />
+                              <TextField fx:id="entModeloCoche" layoutX="189.0" layoutY="152.0" promptText="Modelo" />
+                              <TextField fx:id="entMatriculaCoche" layoutX="362.0" layoutY="152.0" promptText="Matricula" />
+                              <ComboBox fx:id="comboCoche" layoutX="534.0" layoutY="152.0" prefWidth="150.0" promptText="Tipo de coche" />
+                              <CheckBox fx:id="checkCoche" layoutX="55.0" layoutY="229.0" mnemonicParsing="false" text="¿Reparado?" />
+                              <TextField fx:id="entPrecioCompraCoche" layoutX="22.0" layoutY="190.0" promptText="Precio de compra" />
+                              <TextField fx:id="entPrecioVentaCoche" layoutX="189.0" layoutY="190.0" promptText="Precio de venta" />
+                              <DatePicker fx:id="entFechaAlta" layoutX="361.0" layoutY="190.0" prefHeight="25.0" prefWidth="150.0" promptText="Fecha Alta" />
+                              <DatePicker fx:id="entFechaBaja" layoutX="534.0" layoutY="190.0" prefHeight="25.0" prefWidth="149.0" promptText="Fecha Venta" />
+                              <TextField fx:id="entProveedorCoche" layoutX="256.0" layoutY="225.0" promptText="Codigo Proveedor" />
+                              <TextField fx:id="entExposicionCoche" layoutX="490.0" layoutY="225.0" promptText="Codigo Exposicion" />
+                              <TextField fx:id="entVendedorCoche" layoutX="148.0" layoutY="271.0" promptText="Codigo Vendedor" />
+                              <TextField fx:id="entClienteCoche" layoutX="362.0" layoutY="271.0" promptText="Codigo Cliente" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -173,6 +245,40 @@
             </TabPane>
          </content>
     </Tab>
-    <Tab text="Consultas" />
+    <Tab text="Consultas">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="codCoche" layoutX="7.0" layoutY="45.0" promptText="Codigo do coche" />
+                  <Button layoutX="183.0" layoutY="45.0" mnemonicParsing="false" onAction="#buscarCliente" text="Buscar" />
+                  <TextArea fx:id="textArea" layoutX="308.0" layoutY="15.0" prefHeight="61.0" prefWidth="364.0" />
+                  <Separator layoutX="-10.0" layoutY="91.0" prefHeight="11.0" prefWidth="734.0" />
+                  <Label layoutX="54.0" layoutY="14.0" text="Consulta de clientes" />
+                  <Button layoutX="30.0" layoutY="113.0" mnemonicParsing="false" onAction="#listarCoches" text="Listar Coches" />
+                  <ScrollPane layoutX="11.0" layoutY="156.0" prefHeight="193.0" prefWidth="692.0">
+                     <content>
+                        <TableView fx:id="tablaCoches1" prefHeight="192.0" prefWidth="675.0">
+                           <columns>
+                              <TableColumn fx:id="idCoche1" prefWidth="26.0" text="ID" />
+                              <TableColumn fx:id="marcaCoche1" prefWidth="40.0" text="Marca" />
+                              <TableColumn fx:id="modeloCoche1" prefWidth="49.0" text="Modelo" />
+                              <TableColumn fx:id="matriculaCoche1" prefWidth="46.0" text="Matr" />
+                              <TableColumn fx:id="tipoCoche1" prefWidth="60.0" text="Tipo" />
+                              <TableColumn fx:id="precioCompraCoche1" prefWidth="61.0" text="P.Compra" />
+                              <TableColumn fx:id="precioVentaCoche1" prefWidth="51.0" text="P.Venta" />
+                              <TableColumn fx:id="fechaAltaCoche1" prefWidth="39.0" text="F.Alta" />
+                              <TableColumn fx:id="fechaBajaCoche1" prefWidth="47.0" text="F.Venta" />
+                              <TableColumn fx:id="reparacionCoche1" prefWidth="48.0" text="Reparado" />
+                              <TableColumn fx:id="proveedorCoche1" prefWidth="50.0" text="Proveedor" />
+                              <TableColumn fx:id="exposicionCoche1" prefWidth="58.0" text="Exposicion" />
+                              <TableColumn fx:id="vendedorCoche1" prefWidth="54.0" text="Vendedor" />
+                              <TableColumn fx:id="clienteCoche1" prefWidth="45.0" text="Cliente" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </content></Tab>
   </tabs>
 </TabPane>

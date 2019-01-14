@@ -6,10 +6,13 @@
 package vista;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -23,6 +26,15 @@ public class NewFXMain extends Application {
         Scene escena =new Scene(root);
         stage.setScene(escena);
         stage.show();
+        
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.out.println("Cerrada ventana, terminando programa");
+                System.exit(0);
+        }
+    });
     }
 
     /**
